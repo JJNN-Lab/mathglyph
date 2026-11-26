@@ -1,4 +1,4 @@
 # JNX MathGlyph
 
-Built app only (GitHub Pages). Built from source commit `0eaac44` on 2026-11-26.
+Built app only (GitHub Pages). Built from source commit `7104c26` on 2026-11-26.
 Third-party licenses: [LICENSES.txt](LICENSES.txt). The source code is not public.
