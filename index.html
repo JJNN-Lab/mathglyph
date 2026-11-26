@@ -6,8 +6,8 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-CZpWffhD.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DfnEey1t.css">
+    <script type="module" crossorigin src="./assets/index-B25vWTOT.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BJBsjQAr.css">
   </head>
   <!--
     Texts: every element with data-i18n="key" is filled from src/i18n.ts (sr, sr-Cyrl, en);
@@ -236,6 +236,44 @@
             <canvas id="spectroCanvas" class="spectro" role="img" data-i18n-aria="spectro.aria" aria-label="Spektrogram zvuka natpisa"></canvas>
             <p class="hint" id="spectroNote"></p>
             <p class="hint" id="soundStatus" aria-live="polite"></p>
+            <section class="sound-in" aria-labelledby="soundInTitle">
+              <h3 id="soundInTitle" data-i18n="soundIn.title">Iz zvuka u sliku</h3>
+              <p class="hint" data-i18n="soundIn.hint" data-i18n-html></p>
+              <div class="sound-in-actions">
+                <button type="button" id="soundLoad" data-i18n="soundIn.load">Učitaj zvuk</button>
+                <input type="file" id="soundFile" accept="audio/*,.wav,.mp3,.ogg,.oga,.m4a,.webm,.flac" hidden />
+                <button type="button" id="soundRecord" data-i18n="soundIn.record">Snimi mikrofonom (5 s)</button>
+              </div>
+              <p class="hint" id="soundInStatus" aria-live="polite"></p>
+              <div id="soundInResult" class="sound-in-result" hidden>
+                <canvas id="soundInSpectro" class="spectro" role="img" data-i18n-aria="soundIn.spectroAria" aria-label="Spektrogram učitanog zvuka"></canvas>
+                <p class="hint" id="soundInNote"></p>
+                <div class="sound-in-pics">
+                  <figure id="soundXYFig" hidden>
+                    <canvas id="soundInXY" class="xy" width="400" height="400" role="img" data-i18n-aria="soundIn.xyAria" aria-label="XY slika stereo zvuka"></canvas>
+                    <figcaption class="hint" data-i18n="soundIn.xyNote"></figcaption>
+                  </figure>
+                  <figure>
+                    <svg id="soundDrawing" class="sound-drawing" viewBox="0 0 400 400" role="img" data-i18n-aria="soundIn.drawingAria" aria-label="Crtež napravljen od zvuka"><path /></svg>
+                    <figcaption>
+                      <label class="field">
+                        <span class="label" data-i18n="soundIn.drawing">Crtež od zvuka</span>
+                        <select id="soundDrawingKind">
+                          <option value="rose" data-i18n="soundIn.rose">Ruža</option>
+                          <option value="harmonograph" data-i18n="soundIn.harmonograph">Harmonograf</option>
+                        </select>
+                      </label>
+                    </figcaption>
+                  </figure>
+                </div>
+                <pre id="soundFormula" class="export-text sound-formula"></pre>
+                <p class="hint" id="soundDrawingNote"></p>
+                <div class="sound-in-actions">
+                  <button type="button" id="soundCopy" data-i18n="soundIn.copy">Kopiraj za Desmos</button>
+                  <button type="button" id="soundSvg" data-i18n="soundIn.svg">Preuzmi crtež (SVG)</button>
+                </div>
+              </div>
+            </section>
           </div>
           <div id="imagePanel" class="image-panel" hidden>
             <div class="image-options">
