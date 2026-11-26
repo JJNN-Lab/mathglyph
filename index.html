@@ -6,8 +6,8 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-B25vWTOT.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BJBsjQAr.css">
+    <script type="module" crossorigin src="./assets/index-CdGoRTn7.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DBNhjL6V.css">
   </head>
   <!--
     Texts: every element with data-i18n="key" is filled from src/i18n.ts (sr, sr-Cyrl, en);
@@ -62,6 +62,8 @@
       <details class="sci" data-style="calligraphy"><summary data-i18n="sci.calligraphy.title"></summary><div class="sci-body" data-i18n="sci.calligraphy" data-i18n-html></div></details>
       <details class="sci" data-style="astronomy"><summary data-i18n="sci.astronomy.title"></summary><div class="sci-body" data-i18n="sci.astronomy" data-i18n-html></div></details>
       <details class="sci" data-style="physics"><summary data-i18n="sci.physics.title"></summary><div class="sci-body" data-i18n="sci.physics" data-i18n-html></div></details>
+      <details class="sci" data-style="quantum"><summary data-i18n="sci.quantum.title"></summary><div class="sci-body" data-i18n="sci.quantum" data-i18n-html></div></details>
+      <details class="sci" data-style="hologram"><summary data-i18n="sci.hologram.title"></summary><div class="sci-body" data-i18n="sci.hologram" data-i18n-html></div></details>
     </dialog>
 
     <main class="layout">
@@ -224,6 +226,8 @@
             <button type="button" role="tab" data-format="svg" aria-selected="false">SVG</button>
             <button type="button" role="tab" data-format="slika" aria-selected="false" data-i18n="tab.slika">Slika</button>
             <button type="button" role="tab" data-format="zvuk" aria-selected="false" data-i18n="tab.zvuk">Zvuk</button>
+            <button type="button" role="tab" data-format="kvant" aria-selected="false" data-i18n="tab.kvant">Kvant</button>
+            <button type="button" role="tab" data-format="hologram" aria-selected="false" data-i18n="tab.hologram">Hologram</button>
           </div>
           <div class="export-head">
             <h2 id="exportTitle"></h2>
@@ -274,6 +278,52 @@
                 </div>
               </div>
             </section>
+          </div>
+          <div id="quantumPanel" class="wave-panel" hidden>
+            <canvas id="quantumCanvas" class="wave-canvas" role="img" data-i18n-aria="quantum.aria" aria-label="Gustina verovatnoće elektrona u kutiji"></canvas>
+            <div class="wave-controls">
+              <button type="button" id="quantumPlay" class="primary" data-i18n="quantum.play">▶ Pokreni</button>
+              <label class="wave-time">
+                <span class="label" data-i18n="quantum.time">Vreme</span>
+                <input type="range" id="quantumTime" min="0" max="480" step="1" value="0" />
+              </label>
+              <output id="quantumTimeOut" for="quantumTime"></output>
+            </div>
+            <div class="wave-controls" role="group" data-i18n-aria="quantum.jump" aria-label="Skoči na trenutak">
+              <button type="button" data-s="0">0</button>
+              <button type="button" data-s="0.25">T/4</button>
+              <button type="button" data-s="0.3333333333333333">T/3</button>
+              <button type="button" data-s="0.5">T/2</button>
+              <button type="button" data-s="1">T</button>
+              <label class="check"><input type="checkbox" id="quantumPhase" checked /> <span data-i18n="quantum.phase">Boja pokazuje fazu talasa</span></label>
+            </div>
+            <canvas id="fidelityCanvas" class="fidelity" width="960" height="150" role="img" data-i18n-aria="quantum.fidAria" aria-label="Sličnost sa početnim natpisom kroz vreme"></canvas>
+            <p class="hint" id="quantumNote"></p>
+            <pre id="quantumEq" class="export-text wave-eq"></pre>
+            <button type="button" class="link-btn" data-sci="quantum" data-i18n="sci.button">Kako ovo radi?</button>
+          </div>
+          <div id="holoPanel" class="wave-panel" hidden>
+            <label class="field holo-kind">
+              <span class="label" data-i18n="holo.kind">Vrsta maske</span>
+              <select id="holoKind">
+                <option value="phase" data-i18n="holo.phase">Fazna (kinoform): sva svetlost prolazi</option>
+                <option value="binary" data-i18n="holo.binary">Crno-bela (za štampu)</option>
+              </select>
+            </label>
+            <div class="holo-pics">
+              <figure>
+                <canvas id="holoMask" class="holo-canvas" width="512" height="512" role="img" data-i18n-aria="holo.maskAria" aria-label="Hologram: maska koja liči na šum"></canvas>
+                <figcaption class="hint" data-i18n="holo.maskTitle">Hologram (maska)</figcaption>
+              </figure>
+              <figure>
+                <canvas id="holoWall" class="holo-canvas" width="512" height="512" role="img" data-i18n-aria="holo.wallAria" aria-label="Zid osvetljen laserom kroz masku"></canvas>
+                <figcaption class="hint" data-i18n="holo.wallTitle">Na zidu, posle lasera</figcaption>
+              </figure>
+            </div>
+            <p class="hint" id="holoStatus" aria-live="polite"></p>
+            <p class="hint" id="holoNote"></p>
+            <pre id="holoEq" class="export-text wave-eq"></pre>
+            <button type="button" class="link-btn" data-sci="hologram" data-i18n="sci.button">Kako ovo radi?</button>
           </div>
           <div id="imagePanel" class="image-panel" hidden>
             <div class="image-options">
