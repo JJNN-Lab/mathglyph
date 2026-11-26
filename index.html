@@ -6,8 +6,8 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-BhQ0bzZZ.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-yhKFgi_o.css">
+    <script type="module" crossorigin src="./assets/index-WgNPxIlT.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-gA_5PfQj.css">
   </head>
   <!--
     Texts: every element with data-i18n="key" is filled from src/i18n.ts (sr, sr-Cyrl, en);
@@ -66,6 +66,7 @@
       <details class="sci" data-style="complex"><summary data-i18n="sci.complex.title"></summary><div class="sci-body" data-i18n="sci.complex" data-i18n-html></div></details>
       <details class="sci" data-style="blackhole"><summary data-i18n="sci.blackhole.title"></summary><div class="sci-body" data-i18n="sci.blackhole" data-i18n-html></div></details>
       <details class="sci" data-style="physics"><summary data-i18n="sci.physics.title"></summary><div class="sci-body" data-i18n="sci.physics" data-i18n-html></div></details>
+      <details class="sci" data-style="relativity"><summary data-i18n="sci.relativity.title"></summary><div class="sci-body" data-i18n="sci.relativity" data-i18n-html></div></details>
       <details class="sci" data-style="evolution"><summary data-i18n="sci.evolution.title"></summary><div class="sci-body" data-i18n="sci.evolution" data-i18n-html></div></details>
       <details class="sci" data-style="heat"><summary data-i18n="sci.heat.title"></summary><div class="sci-body" data-i18n="sci.heat" data-i18n-html></div></details>
       <details class="sci" data-style="quantum"><summary data-i18n="sci.quantum.title"></summary><div class="sci-body" data-i18n="sci.quantum" data-i18n-html></div></details>
@@ -358,6 +359,7 @@
             <button type="button" role="tab" data-format="hologram" aria-selected="false" data-i18n="tab.hologram">Hologram</button>
             <button type="button" role="tab" data-format="toplota" aria-selected="false" data-i18n="tab.toplota">Toplota</button>
             <button type="button" role="tab" data-format="evolucija" aria-selected="false" data-i18n="tab.evolucija">Evolucija</button>
+            <button type="button" role="tab" data-format="relativnost" aria-selected="false" data-i18n="tab.relativnost">Relativnost</button>
           </div>
           <div class="export-head">
             <h2 id="labTitle"></h2>
@@ -429,6 +431,26 @@
             <p class="hint" id="quantumNote"></p>
             <pre id="quantumEq" class="export-text wave-eq"></pre>
             <button type="button" class="link-btn" data-sci="quantum" data-i18n="sci.button">Kako ovo radi?</button>
+          </div>
+          <div id="relPanel" class="wave-panel" hidden>
+            <div id="relPlot" class="rel-plot"></div>
+            <div class="wave-controls">
+              <button type="button" id="relPlay" class="primary" data-i18n="rel.play">▶ Proleti pored posmatrača</button>
+              <label class="wave-time">
+                <span class="label" data-i18n="rel.beta">Brzina v/c</span>
+                <input type="range" id="relBeta" min="0" max="99" step="1" value="90" />
+              </label>
+              <output id="relBetaOut" for="relBeta"></output>
+            </div>
+            <div class="wave-controls">
+              <label class="wave-time">
+                <span class="label" data-i18n="rel.position">Položaj</span>
+                <input type="range" id="relPos" min="-1000" max="1000" step="1" value="0" />
+              </label>
+            </div>
+            <p class="hint" id="relNote"></p>
+            <pre id="relEq" class="export-text wave-eq"></pre>
+            <button type="button" class="link-btn" data-sci="relativity" data-i18n="sci.button">Kako ovo radi?</button>
           </div>
           <div id="evoPanel" class="wave-panel" hidden>
             <div id="evoPlot" class="evo-plot"></div>
