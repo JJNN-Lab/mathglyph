@@ -6,7 +6,7 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-Do-P1Fw4.js"></script>
+    <script type="module" crossorigin src="./assets/index-CkV73EEA.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-hjK_9Fxm.css">
   </head>
   <!--
@@ -66,6 +66,7 @@
       <details class="sci" data-style="complex"><summary data-i18n="sci.complex.title"></summary><div class="sci-body" data-i18n="sci.complex" data-i18n-html></div></details>
       <details class="sci" data-style="blackhole"><summary data-i18n="sci.blackhole.title"></summary><div class="sci-body" data-i18n="sci.blackhole" data-i18n-html></div></details>
       <details class="sci" data-style="physics"><summary data-i18n="sci.physics.title"></summary><div class="sci-body" data-i18n="sci.physics" data-i18n-html></div></details>
+      <details class="sci" data-style="heat"><summary data-i18n="sci.heat.title"></summary><div class="sci-body" data-i18n="sci.heat" data-i18n-html></div></details>
       <details class="sci" data-style="quantum"><summary data-i18n="sci.quantum.title"></summary><div class="sci-body" data-i18n="sci.quantum" data-i18n-html></div></details>
       <details class="sci" data-style="hologram"><summary data-i18n="sci.hologram.title"></summary><div class="sci-body" data-i18n="sci.hologram" data-i18n-html></div></details>
     </dialog>
@@ -354,6 +355,7 @@
             <button type="button" role="tab" data-format="zvuk" aria-selected="true" data-i18n="tab.zvuk">Zvuk</button>
             <button type="button" role="tab" data-format="kvant" aria-selected="false" data-i18n="tab.kvant">Kvant</button>
             <button type="button" role="tab" data-format="hologram" aria-selected="false" data-i18n="tab.hologram">Hologram</button>
+            <button type="button" role="tab" data-format="toplota" aria-selected="false" data-i18n="tab.toplota">Toplota</button>
           </div>
           <div class="export-head">
             <h2 id="labTitle"></h2>
@@ -425,6 +427,34 @@
             <p class="hint" id="quantumNote"></p>
             <pre id="quantumEq" class="export-text wave-eq"></pre>
             <button type="button" class="link-btn" data-sci="quantum" data-i18n="sci.button">Kako ovo radi?</button>
+          </div>
+          <div id="heatPanel" class="wave-panel" hidden>
+            <canvas id="heatCanvas" class="wave-canvas" role="img" data-i18n-aria="heat.aria" aria-label="Temperatura bakarne ploče"></canvas>
+            <div class="wave-controls">
+              <button type="button" id="heatPlay" class="primary" data-i18n="quantum.play">▶ Pokreni</button>
+              <label class="wave-time">
+                <span class="label" data-i18n="quantum.time">Vreme</span>
+                <input type="range" id="heatTime" min="0" max="10000" step="1" value="0" />
+              </label>
+              <output id="heatTimeOut" for="heatTime"></output>
+            </div>
+            <div class="wave-controls" role="group" data-i18n-aria="quantum.jump" aria-label="Skoči na trenutak">
+              <button type="button" data-t="0">0 s</button>
+              <button type="button" data-t="0.1">0,1 s</button>
+              <button type="button" data-t="1">1 s</button>
+              <button type="button" data-t="10">10 s</button>
+              <button type="button" data-t="60">60 s</button>
+            </div>
+            <p class="hint" id="heatNote"></p>
+            <div class="wave-controls">
+              <button type="button" id="heatBack" data-i18n="heat.back">⟲ Pokušaj da vratiš vreme unazad</button>
+            </div>
+            <figure id="heatBackFig" hidden>
+              <canvas id="heatBackCanvas" class="wave-canvas" role="img" data-i18n-aria="heat.backAria" aria-label="Pokušaj da se vrati početna temperatura"></canvas>
+              <figcaption class="hint" id="heatBackNote" aria-live="polite"></figcaption>
+            </figure>
+            <pre id="heatEq" class="export-text wave-eq"></pre>
+            <button type="button" class="link-btn" data-sci="heat" data-i18n="sci.button">Kako ovo radi?</button>
           </div>
           <div id="holoPanel" class="wave-panel" hidden>
             <label class="field holo-kind">
