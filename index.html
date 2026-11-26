@@ -6,8 +6,8 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-CjPoSHI2.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-bkao0ktq.css">
+    <script type="module" crossorigin src="./assets/index-C7pGEunw.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-1xMFibmU.css">
   </head>
   <!--
     Texts: every element with data-i18n="key" is filled from src/i18n.ts (sr, sr-Cyrl, en);
@@ -288,10 +288,7 @@
             <span class="lab-name" data-i18n="img.title">Slika i štampa</span>
             <span class="lab-sub" data-i18n="img.sub">PNG, GIF i animirani SVG: za mreže, majicu i šolju</span>
           </summary>
-          <div class="export-head">
-            <p class="hint" id="imageHint"></p>
-            <div class="actions" id="imageActions"></div>
-          </div>
+          <p class="hint" id="imageHint"></p>
           <div id="imagePanel" class="image-panel">
             <div class="image-options">
               <label class="field">
@@ -305,12 +302,16 @@
                   <option value="natpis" data-i18n="preset.natpis">Samo natpis</option>
                 </select>
               </label>
-              <fieldset class="checks">
+              <fieldset class="order-field">
                 <legend class="label" data-i18n="imageParts">Šta je na slici</legend>
-                <label><input id="styleName" type="checkbox" /> <span data-i18n="styleName">Naziv stila</span></label>
-                <label><input id="styleParams" type="checkbox" /> <span data-i18n="styleParams">Parametri stila</span></label>
-                <label><input id="caption" type="checkbox" checked /> <span data-i18n="caption">Jednačina stila</span></label>
-                <label><input id="counts" type="checkbox" checked /> <span data-i18n="counts">Broj slova i krivih</span></label>
+                <span class="field-hint" data-i18n="order.hint">Prevuci ⠿ (ili ↑ ↓) da promeniš redosled na slici, odozgo nadole.</span>
+                <ol id="imageOrder" class="order-list">
+                  <li data-part="inscription"><span class="grip" aria-hidden="true">⠿</span><span class="order-label" data-i18n="order.inscription">Ispis (natpis)</span><span class="order-move"><button type="button" class="order-up" data-i18n-aria="order.up" aria-label="Pomeri gore">↑</button><button type="button" class="order-down" data-i18n-aria="order.down" aria-label="Pomeri dole">↓</button></span></li>
+                  <li data-part="style"><span class="grip" aria-hidden="true">⠿</span><span class="order-label"><label><input id="styleName" type="checkbox" /> <span data-i18n="styleName">Naziv stila</span></label> <label><input id="styleParams" type="checkbox" /> <span data-i18n="styleParams">Parametri stila</span></label></span><span class="order-move"><button type="button" class="order-up" data-i18n-aria="order.up" aria-label="Pomeri gore">↑</button><button type="button" class="order-down" data-i18n-aria="order.down" aria-label="Pomeri dole">↓</button></span></li>
+                  <li data-part="formula"><span class="grip" aria-hidden="true">⠿</span><span class="order-label"><label><input id="caption" type="checkbox" checked /> <span data-i18n="caption">Jednačina stila</span></label></span><span class="order-move"><button type="button" class="order-up" data-i18n-aria="order.up" aria-label="Pomeri gore">↑</button><button type="button" class="order-down" data-i18n-aria="order.down" aria-label="Pomeri dole">↓</button></span></li>
+                  <li data-part="counts"><span class="grip" aria-hidden="true">⠿</span><span class="order-label"><label><input id="counts" type="checkbox" checked /> <span data-i18n="counts">Broj slova i krivih</span></label></span><span class="order-move"><button type="button" class="order-up" data-i18n-aria="order.up" aria-label="Pomeri gore">↑</button><button type="button" class="order-down" data-i18n-aria="order.down" aria-label="Pomeri dole">↓</button></span></li>
+                  <li data-part="slogan"><span class="grip" aria-hidden="true">⠿</span><span class="order-label" data-i18n="order.slogan">Slogan (uvek)</span><span class="order-move"><button type="button" class="order-up" data-i18n-aria="order.up" aria-label="Pomeri gore">↑</button><button type="button" class="order-down" data-i18n-aria="order.down" aria-label="Pomeri dole">↓</button></span></li>
+                </ol>
               </fieldset>
               <details class="more" id="moreImage">
                 <summary data-i18n="more.image">Više opcija slike</summary>
@@ -337,6 +338,7 @@
               <p class="hint" id="presetNote"></p>
             </div>
             <div id="imagePreview" class="image-preview" data-i18n-aria="preview.aria" aria-label="Pregled kompozicije"></div>
+            <div class="actions image-actions" id="imageActions"></div>
             <p class="hint" id="gifStatus" aria-live="polite"></p>
           </div>
         </details>
