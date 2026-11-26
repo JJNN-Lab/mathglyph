@@ -6,8 +6,8 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-WgNPxIlT.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-gA_5PfQj.css">
+    <script type="module" crossorigin src="./assets/index-CjPoSHI2.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-bkao0ktq.css">
   </head>
   <!--
     Texts: every element with data-i18n="key" is filled from src/i18n.ts (sr, sr-Cyrl, en);
@@ -283,23 +283,16 @@
           <div id="glyphEq" class="glyph-eq"></div>
         </div>
 
-        <div class="panel export">
-          <div class="tabs" role="tablist" data-i18n-aria="tabs.aria" aria-label="Format izvoza">
-            <button type="button" role="tab" data-format="desmos" aria-selected="true">Desmos</button>
-            <button type="button" role="tab" data-format="geogebra" aria-selected="false">GeoGebra</button>
-            <button type="button" role="tab" data-format="latex" aria-selected="false">LaTeX</button>
-            <button type="button" role="tab" data-format="txt" aria-selected="false">TXT</button>
-            <button type="button" role="tab" data-format="svg" aria-selected="false">SVG</button>
-            <button type="button" role="tab" data-format="slika" aria-selected="false" data-i18n="tab.slika">Slika</button>
-          </div>
+        <details class="panel image-section" id="imageSection">
+          <summary class="lab-summary">
+            <span class="lab-name" data-i18n="img.title">Slika i štampa</span>
+            <span class="lab-sub" data-i18n="img.sub">PNG, GIF i animirani SVG: za mreže, majicu i šolju</span>
+          </summary>
           <div class="export-head">
-            <h2 id="exportTitle"></h2>
-            <div class="actions" id="exportActions"></div>
+            <p class="hint" id="imageHint"></p>
+            <div class="actions" id="imageActions"></div>
           </div>
-          <p class="hint" id="exportHint"></p>
-          <ol id="exprList" class="expr-list"></ol>
-          <pre id="exportText" class="export-text" hidden></pre>
-          <div id="imagePanel" class="image-panel" hidden>
+          <div id="imagePanel" class="image-panel">
             <div class="image-options">
               <label class="field">
                 <span class="label" data-i18n="preset">Format</span>
@@ -346,7 +339,28 @@
             <div id="imagePreview" class="image-preview" data-i18n-aria="preview.aria" aria-label="Pregled kompozicije"></div>
             <p class="hint" id="gifStatus" aria-live="polite"></p>
           </div>
-        </div>
+        </details>
+
+        <details class="panel export" id="equations">
+          <summary class="lab-summary">
+            <span class="lab-name" data-i18n="eq.title">Jednačine</span>
+            <span class="lab-sub" data-i18n="eq.sub">Desmos · GeoGebra · LaTeX · TXT · SVG: jednačine natpisa za druge programe</span>
+          </summary>
+          <div class="tabs" role="tablist" data-i18n-aria="tabs.aria" aria-label="Format izvoza">
+            <button type="button" role="tab" data-format="desmos" aria-selected="true">Desmos</button>
+            <button type="button" role="tab" data-format="geogebra" aria-selected="false">GeoGebra</button>
+            <button type="button" role="tab" data-format="latex" aria-selected="false">LaTeX</button>
+            <button type="button" role="tab" data-format="txt" aria-selected="false">TXT</button>
+            <button type="button" role="tab" data-format="svg" aria-selected="false">SVG</button>
+          </div>
+          <div class="export-head">
+            <h2 id="exportTitle"></h2>
+            <div class="actions" id="exportActions"></div>
+          </div>
+          <p class="hint" id="exportHint"></p>
+          <ol id="exprList" class="expr-list"></ol>
+          <pre id="exportText" class="export-text" hidden></pre>
+        </details>
 
         <details class="panel lab" id="lab">
           <summary class="lab-summary">
