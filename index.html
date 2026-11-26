@@ -6,8 +6,8 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-FA99xo2P.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-D8SbkImx.css">
+    <script type="module" crossorigin src="./assets/index-DhZB19xG.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DP9SpKo4.css">
   </head>
   <!--
     Texts: every element with data-i18n="key" is filled from src/i18n.ts (sr, sr-Cyrl, en);
@@ -149,24 +149,32 @@
           <div class="anim-bar" role="group" data-i18n-aria="anim.aria" aria-label="Animacija ispisivanja">
             <button id="play" type="button" class="primary">▶ Ispiši</button>
             <button id="restart" type="button" data-i18n-title="anim.restart" data-i18n-aria="anim.restart" title="Ispočetka" aria-label="Ispočetka">⟲</button>
-            <label class="anim-speed"><span data-i18n="anim.speed">Brzina</span>
-              <select id="speed">
-                <option value="16" data-i18n="anim.slow">sporo</option>
-                <option value="8" selected data-i18n="anim.normal">normalno</option>
-                <option value="4" data-i18n="anim.fast">brzo</option>
-              </select>
+            <label class="anim-speed"><span data-i18n="anim.speed">Trajanje</span>
+              <input id="speed" type="range" min="2" max="30" step="1" value="8" data-i18n-aria="anim.speed.aria" aria-label="Trajanje ispisa u sekundama" />
+              <output id="speedOut" class="anim-t">8 s</output>
             </label>
             <label id="epicyclesField" hidden><input id="epicycles" type="checkbox" checked /> <span data-i18n="anim.epicycles">Epicikli</span></label>
             <label id="liveEqField"><input id="liveEq" type="checkbox" checked /> <span data-i18n="anim.liveEq">Jednačina uživo</span></label>
             <input id="scrub" type="range" min="0" max="1000" step="1" value="1000" data-i18n-aria="anim.scrub" aria-label="Napredak ispisivanja" />
             <output id="scrubOut" class="anim-t"></output>
           </div>
-          <div id="plot" class="plot-scroll" tabindex="0" role="group" data-i18n-aria="plot.aria" aria-label="Grafik"></div>
-          <div id="liveEqBox" class="live-eq-box" role="note" data-i18n-aria="anim.liveEq.aria" aria-label="Jednačina krive koja se upravo ispisuje" hidden>
-            <div class="live-eq-head"><span id="liveEqLabel" class="live-eq-label"></span><span id="liveEqPoint" class="live-eq-point"></span></div>
-            <div id="liveEqFormula" class="live-eq-formula"></div>
+          <div class="plot-area">
+            <div id="liveEqBox" class="live-eq-box" role="note" data-i18n-aria="anim.liveEq.aria" aria-label="Jednačina krive koja se upravo ispisuje" hidden>
+              <div class="live-eq-head"><span id="liveEqLabel" class="live-eq-label"></span><span id="liveEqPoint" class="live-eq-point"></span></div>
+              <div id="liveEqFormula" class="live-eq-formula"></div>
+            </div>
+            <div id="plot" class="plot-scroll" tabindex="0" role="group" data-i18n-aria="plot.aria" aria-label="Grafik"></div>
           </div>
           <div id="stats" class="stats"></div>
+        </div>
+
+        <div class="panel glyph" id="glyphPanel" hidden>
+          <div class="export-head">
+            <h2 id="glyphTitle"></h2>
+            <button id="closeGlyph" type="button" data-i18n-aria="close" aria-label="Zatvori">×</button>
+          </div>
+          <p class="hint" id="glyphHint"></p>
+          <div id="glyphEq" class="glyph-eq"></div>
         </div>
 
         <div class="panel export">
@@ -199,7 +207,10 @@
                 </select>
               </label>
               <fieldset class="checks">
-                <label><input id="caption" type="checkbox" checked /> <span data-i18n="caption">Jednačina ispod natpisa</span></label>
+                <legend class="label" data-i18n="imageParts">Šta je na slici</legend>
+                <label><input id="caption" type="checkbox" checked /> <span data-i18n="caption">Jednačina stila</span></label>
+                <label><input id="counts" type="checkbox" checked /> <span data-i18n="counts">Broj slova i krivih</span></label>
+                <label><input id="wall" type="checkbox" /> <span data-i18n="wall">Jednačine u pozadini</span></label>
                 <label><input id="liveEqImage" type="checkbox" checked /> <span data-i18n="liveEqImage">Jednačina uživo (GIF, animirani SVG)</span></label>
                 <label><input id="transparent" type="checkbox" /> <span data-i18n="transparent">Providna pozadina (PNG, SVG)</span></label>
                 <label><input id="posterGrid" type="checkbox" /> <span data-i18n="posterGrid">XY mreža</span></label>
@@ -222,14 +233,6 @@
           </div>
         </div>
 
-        <div class="panel glyph" id="glyphPanel" hidden>
-          <div class="export-head">
-            <h2 id="glyphTitle"></h2>
-            <button id="closeGlyph" type="button" data-i18n-aria="close" aria-label="Zatvori">×</button>
-          </div>
-          <p class="hint" id="glyphHint"></p>
-          <div id="glyphEq" class="glyph-eq"></div>
-        </div>
       </section>
     </main>
 
