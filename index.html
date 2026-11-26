@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="sr-Latn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
+    <title>JNX MathGlyph</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <script type="module" crossorigin src="./assets/index-m1PhEqSg.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-D8SbkImx.css">
+  </head>
+  <!--
+    Texts: every element with data-i18n="key" is filled from src/i18n.ts (sr, sr-Cyrl, en);
+    data-i18n-html renders markup (<sub>, <strong>), data-i18n-aria / data-i18n-title set those attributes.
+    The Serbian Latin text below is only the fallback before the script runs.
+  -->
+  <body>
+    <header class="top">
+      <div class="brand">
+        <h1>JNX MathGlyph</h1>
+        <p class="tagline">Words written by mathematics.</p>
+      </div>
+      <div class="top-actions">
+        <label class="app-theme"><span data-i18n="header.lang">Jezik</span>
+          <select id="lang">
+            <option value="sr" lang="sr-Latn">Srpski (latinica)</option>
+            <option value="sr-Cyrl" lang="sr-Cyrl">Српски (ћирилица)</option>
+            <option value="en" lang="en">English</option>
+          </select>
+        </label>
+        <label class="app-theme"><span data-i18n="header.appTheme">Izgled aplikacije</span>
+          <select id="appTheme">
+            <option value="system" selected data-i18n="appTheme.system">Sistemski</option>
+            <option value="light" data-i18n="appTheme.light">Svetli</option>
+            <option value="dark" data-i18n="appTheme.dark">Tamni</option>
+          </select>
+        </label>
+        <button id="helpBtn" type="button" data-i18n="header.help">Pomoć</button>
+        <span class="version" id="version"></span>
+      </div>
+    </header>
+
+    <dialog id="help" class="help" aria-labelledby="helpTitle">
+      <div class="export-head">
+        <h2 id="helpTitle" data-i18n="help.title">O aplikaciji JNX MathGlyph</h2>
+        <button id="helpClose" type="button" data-i18n-aria="close" aria-label="Zatvori">×</button>
+      </div>
+      <div class="help-body" data-i18n="help.body" data-i18n-html></div>
+      <p class="hint" id="helpVersion"></p>
+    </dialog>
+
+    <dialog id="science" class="help science" aria-labelledby="sciTitle">
+      <div class="export-head">
+        <h2 id="sciTitle" data-i18n="sci.title">Matematika iza stilova</h2>
+        <button id="sciClose" type="button" data-i18n-aria="close" aria-label="Zatvori">×</button>
+      </div>
+      <p class="hint" data-i18n="sci.intro"></p>
+      <details class="sci" data-style="bezier"><summary data-i18n="sci.bezier.title"></summary><div class="sci-body" data-i18n="sci.bezier" data-i18n-html></div></details>
+      <details class="sci" data-style="fourier"><summary data-i18n="sci.fourier.title"></summary><div class="sci-body" data-i18n="sci.fourier" data-i18n-html></div></details>
+      <details class="sci" data-style="minimal"><summary data-i18n="sci.minimal.title"></summary><div class="sci-body" data-i18n="sci.minimal" data-i18n-html></div></details>
+      <details class="sci" data-style="blueprint"><summary data-i18n="sci.blueprint.title"></summary><div class="sci-body" data-i18n="sci.blueprint" data-i18n-html></div></details>
+      <details class="sci" data-style="calligraphy"><summary data-i18n="sci.calligraphy.title"></summary><div class="sci-body" data-i18n="sci.calligraphy" data-i18n-html></div></details>
+    </dialog>
+
+    <main class="layout">
+      <aside class="panel controls" data-i18n-aria="controls.aria" aria-label="Podešavanja">
+        <label class="field">
+          <span class="label" data-i18n="text">Tekst</span>
+          <textarea id="text" rows="4" spellcheck="false"></textarea>
+        </label>
+
+        <label class="field">
+          <span class="label" data-i18n="style">Matematički stil</span>
+          <select id="style">
+            <option value="bezier" selected data-i18n="style.bezier">Bézier: kubne krive iz fonta</option>
+            <option value="fourier" data-i18n="style.fourier">Fourier: trigonometrijski redovi</option>
+            <option value="minimal" data-i18n="style.minimal">Minimal: duži i lukovi elipsi</option>
+            <option value="blueprint" data-i18n="style.blueprint">Blueprint: slova + konstrukcija</option>
+            <option value="calligraphy" data-i18n="style.calligraphy">Kaligrafija: široko pero C±(t)</option>
+          </select>
+        </label>
+        <button id="sciBtn" type="button" class="sci-btn" data-i18n="sci.button">Kako ovo radi?</button>
+
+        <label class="field" id="harmonicsField" hidden>
+          <span class="label"><span data-i18n="harmonics">Broj harmonika N</span> <output id="harmonicsOut"></output></span>
+          <input id="harmonics" type="range" min="1" max="100" step="1" value="20" />
+          <span class="field-hint" data-i18n="harmonics.hint" data-i18n-html></span>
+        </label>
+
+        <div class="field" id="penField" hidden>
+          <label class="field">
+            <span class="label"><span data-i18n="pen.angle">Ugao pera φ</span> <output id="penAngleOut"></output></span>
+            <input id="penAngle" type="range" min="0" max="90" step="1" value="30" />
+          </label>
+          <label class="field">
+            <span class="label"><span data-i18n="pen.width">Širina pera 2h</span> <output id="penWidthOut"></output></span>
+            <input id="penWidth" type="range" min="0.4" max="3" step="0.1" value="1.4" />
+          </label>
+          <span class="field-hint" data-i18n="pen.hint"></span>
+        </div>
+
+        <label class="field">
+          <span class="label"><span data-i18n="spacing">Razmak između slova</span> <output id="spacingOut"></output></span>
+          <input id="spacing" type="range" min="0" max="4" step="0.1" value="0.6" />
+        </label>
+
+        <label class="field">
+          <span class="label" data-i18n="decimals">Preciznost koeficijenata</span>
+          <select id="decimals">
+            <option value="1" data-i18n="decimals.1">1 decimala</option>
+            <option value="2" selected data-i18n="decimals.2">2 decimale</option>
+            <option value="3" data-i18n="decimals.3">3 decimale</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span class="label" data-i18n="plotTheme">Tema ispisa</span>
+          <select id="theme">
+            <option value="app" selected data-i18n="theme.app">Kao aplikacija</option>
+            <option value="svetla" data-i18n="theme.svetla">Svetla</option>
+            <option value="tamna" data-i18n="theme.tamna">Tamna</option>
+            <option value="neon" data-i18n="theme.neon">Neon: tamna, sjaj</option>
+            <option value="papir" data-i18n="theme.papir">Papir: sepija</option>
+            <option value="kreda" data-i18n="theme.kreda">Kreda: školska tabla</option>
+            <option value="nacrt" data-i18n="theme.nacrt">Nacrt: plavi papir</option>
+          </select>
+          <span class="field-hint" id="themeHint"></span>
+        </label>
+
+        <label class="field">
+          <span class="label"><span data-i18n="inkWidth">Debljina linije (samo prikaz)</span> <output id="inkWidthOut"></output></span>
+          <input id="inkWidth" type="range" min="0.5" max="5" step="0.25" value="2" />
+        </label>
+
+        <fieldset class="checks">
+          <label><input id="grid" type="checkbox" checked /> <span data-i18n="grid">XY mreža</span></label>
+          <label><input id="axes" type="checkbox" checked /> <span data-i18n="axes">Koordinatne ose</span></label>
+          <label><input id="nodes" type="checkbox" /> <span data-i18n="nodes">Čvorovi (krajevi krivih)</span></label>
+          <label><input id="italic" type="checkbox" /> <span data-i18n="italic">Kurziv</span></label>
+        </fieldset>
+
+        <p class="note" data-i18n="note.principle">Sve linije na grafiku nastaju računanjem jednačina sa desne strane, a ne crtanjem fonta.</p>
+        <p class="note" id="fontNote" data-i18n="note.font">Font: Noto Sans (SIL Open Font License).</p>
+        <p class="note" id="geoNote" data-i18n="note.geo" hidden></p>
+      </aside>
+
+      <section class="stage">
+        <div class="panel plot-wrap">
+          <div class="anim-bar" role="group" data-i18n-aria="anim.aria" aria-label="Animacija ispisivanja">
+            <button id="play" type="button" class="primary">▶ Ispiši</button>
+            <button id="restart" type="button" data-i18n-title="anim.restart" data-i18n-aria="anim.restart" title="Ispočetka" aria-label="Ispočetka">⟲</button>
+            <label class="anim-speed"><span data-i18n="anim.speed">Brzina</span>
+              <select id="speed">
+                <option value="16" data-i18n="anim.slow">sporo</option>
+                <option value="8" selected data-i18n="anim.normal">normalno</option>
+                <option value="4" data-i18n="anim.fast">brzo</option>
+              </select>
+            </label>
+            <label id="epicyclesField" hidden><input id="epicycles" type="checkbox" checked /> <span data-i18n="anim.epicycles">Epicikli</span></label>
+            <label id="liveEqField"><input id="liveEq" type="checkbox" checked /> <span data-i18n="anim.liveEq">Jednačina uživo</span></label>
+            <input id="scrub" type="range" min="0" max="1000" step="1" value="1000" data-i18n-aria="anim.scrub" aria-label="Napredak ispisivanja" />
+            <output id="scrubOut" class="anim-t"></output>
+          </div>
+          <div id="plot" class="plot-scroll" tabindex="0" role="group" data-i18n-aria="plot.aria" aria-label="Grafik"></div>
+          <div id="liveEqBox" class="live-eq-box" role="note" data-i18n-aria="anim.liveEq.aria" aria-label="Jednačina krive koja se upravo ispisuje" hidden>
+            <div class="live-eq-head"><span id="liveEqLabel" class="live-eq-label"></span><span id="liveEqPoint" class="live-eq-point"></span></div>
+            <div id="liveEqFormula" class="live-eq-formula"></div>
+          </div>
+          <div id="stats" class="stats"></div>
+        </div>
+
+        <div class="panel export">
+          <div class="tabs" role="tablist" data-i18n-aria="tabs.aria" aria-label="Format izvoza">
+            <button type="button" role="tab" data-format="desmos" aria-selected="true">Desmos</button>
+            <button type="button" role="tab" data-format="geogebra" aria-selected="false">GeoGebra</button>
+            <button type="button" role="tab" data-format="latex" aria-selected="false">LaTeX</button>
+            <button type="button" role="tab" data-format="txt" aria-selected="false">TXT</button>
+            <button type="button" role="tab" data-format="svg" aria-selected="false">SVG</button>
+            <button type="button" role="tab" data-format="slika" aria-selected="false" data-i18n="tab.slika">Slika</button>
+          </div>
+          <div class="export-head">
+            <h2 id="exportTitle"></h2>
+            <div class="actions" id="exportActions"></div>
+          </div>
+          <p class="hint" id="exportHint"></p>
+          <ol id="exprList" class="expr-list"></ol>
+          <pre id="exportText" class="export-text" hidden></pre>
+          <div id="imagePanel" class="image-panel" hidden>
+            <div class="image-options">
+              <label class="field">
+                <span class="label" data-i18n="preset">Format</span>
+                <select id="preset">
+                  <option value="facebook" selected data-i18n="preset.facebook">Facebook naslovna</option>
+                  <option value="linkedin" data-i18n="preset.linkedin">LinkedIn naslovna</option>
+                  <option value="instagram" data-i18n="preset.instagram">Instagram objava</option>
+                  <option value="majica" data-i18n="preset.majica">Majica (štampa)</option>
+                  <option value="solja" data-i18n="preset.solja">Šolja (štampa)</option>
+                  <option value="natpis" data-i18n="preset.natpis">Samo natpis</option>
+                </select>
+              </label>
+              <fieldset class="checks">
+                <label><input id="caption" type="checkbox" checked /> <span data-i18n="caption">Jednačina ispod natpisa</span></label>
+                <label><input id="liveEqImage" type="checkbox" checked /> <span data-i18n="liveEqImage">Jednačina uživo (GIF, animirani SVG)</span></label>
+                <label><input id="transparent" type="checkbox" /> <span data-i18n="transparent">Providna pozadina (PNG, SVG)</span></label>
+                <label><input id="posterGrid" type="checkbox" /> <span data-i18n="posterGrid">XY mreža</span></label>
+              </fieldset>
+              <div class="field moment-field">
+                <label class="label" for="moment"><span data-i18n="moment">Trenutak ispisa</span> <output id="momentOut"></output></label>
+                <input id="moment" type="range" min="1" max="1000" step="1" value="1000" />
+                <div class="moment-buttons">
+                  <button type="button" id="momentStart" data-i18n="moment.start">Početak</button>
+                  <button type="button" id="momentRandom" data-i18n="moment.random">Nasumično</button>
+                  <button type="button" id="momentEnd" data-i18n="moment.end">Kraj</button>
+                  <button type="button" id="momentPlot" data-i18n="moment.plot">Sa grafika</button>
+                </div>
+                <span class="field-hint" data-i18n="moment.hint"></span>
+              </div>
+              <p class="hint" id="presetNote"></p>
+            </div>
+            <div id="imagePreview" class="image-preview" data-i18n-aria="preview.aria" aria-label="Pregled kompozicije"></div>
+            <p class="hint" id="gifStatus" aria-live="polite"></p>
+          </div>
+        </div>
+
+        <div class="panel glyph" id="glyphPanel" hidden>
+          <div class="export-head">
+            <h2 id="glyphTitle"></h2>
+            <button id="closeGlyph" type="button" data-i18n-aria="close" aria-label="Zatvori">×</button>
+          </div>
+          <p class="hint" id="glyphHint"></p>
+          <div id="glyphEq" class="glyph-eq"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot"><span class="foot-name">JNX MathGlyph</span> · <span id="brandFamily">A JJNN Lab project · powered by 2J2N Engine</span> · <span id="brandHolder">© JNX Lab</span></footer>
+
+  </body>
+</html>
