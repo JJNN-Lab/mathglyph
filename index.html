@@ -6,7 +6,7 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-D6V9B9CR.js"></script>
+    <script type="module" crossorigin src="./assets/index-AOAuQ59K.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-B2EhlFEW.css">
   </head>
   <!--
@@ -61,6 +61,7 @@
       <details class="sci" data-style="blueprint"><summary data-i18n="sci.blueprint.title"></summary><div class="sci-body" data-i18n="sci.blueprint" data-i18n-html></div></details>
       <details class="sci" data-style="calligraphy"><summary data-i18n="sci.calligraphy.title"></summary><div class="sci-body" data-i18n="sci.calligraphy" data-i18n-html></div></details>
       <details class="sci" data-style="astronomy"><summary data-i18n="sci.astronomy.title"></summary><div class="sci-body" data-i18n="sci.astronomy" data-i18n-html></div></details>
+      <details class="sci" data-style="complex"><summary data-i18n="sci.complex.title"></summary><div class="sci-body" data-i18n="sci.complex" data-i18n-html></div></details>
       <details class="sci" data-style="blackhole"><summary data-i18n="sci.blackhole.title"></summary><div class="sci-body" data-i18n="sci.blackhole" data-i18n-html></div></details>
       <details class="sci" data-style="physics"><summary data-i18n="sci.physics.title"></summary><div class="sci-body" data-i18n="sci.physics" data-i18n-html></div></details>
       <details class="sci" data-style="quantum"><summary data-i18n="sci.quantum.title"></summary><div class="sci-body" data-i18n="sci.quantum" data-i18n-html></div></details>
@@ -85,6 +86,7 @@
             <option value="physics" data-i18n="style.physics">Fizika: čestice u polju</option>
             <option value="astronomy" data-i18n="style.astronomy">Astronomija: planete i komete</option>
             <option value="blackhole" data-i18n="style.blackhole">Crna rupa: gravitaciono sočivo</option>
+            <option value="complex" data-i18n="style.complex">Kompleksne funkcije: −z, i·z, z², 1/z, eᶻ</option>
           </select>
         </label>
         <button id="sciBtn" type="button" class="sci-btn" data-i18n="sci.button">Kako ovo radi?</button>
@@ -117,6 +119,24 @@
             </select>
           </label>
           <span class="field-hint" data-i18n="astro.hint"></span>
+        </div>
+
+        <div class="field" id="complexField" hidden>
+          <label class="field">
+            <span class="label" data-i18n="complex.fn">Funkcija f(z)</span>
+            <select id="complexFn">
+              <option value="neg" data-i18n="complex.neg">−z: minus je okret za 180°</option>
+              <option value="i" data-i18n="complex.i">i·z: okret za 90° (i² = −1)</option>
+              <option value="square" selected data-i18n="complex.square">z²: uglovi se dupliraju</option>
+              <option value="inv" data-i18n="complex.inv">1/z: nula ↔ beskonačnost</option>
+              <option value="exp" data-i18n="complex.exp">e^(i(π/2 − z)): natpis u krugu</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="label"><span data-i18n="complex.morph">Pretapanje z → f(z)</span> <output id="complexMorphOut"></output></span>
+            <input id="complexMorph" type="range" min="0" max="100" step="1" value="100" />
+          </label>
+          <span class="field-hint" data-i18n="complex.hint"></span>
         </div>
 
         <div class="field" id="lensField" hidden>
