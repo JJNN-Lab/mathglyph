@@ -6,8 +6,8 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-CdGoRTn7.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DBNhjL6V.css">
+    <script type="module" crossorigin src="./assets/index-D6V9B9CR.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-B2EhlFEW.css">
   </head>
   <!--
     Texts: every element with data-i18n="key" is filled from src/i18n.ts (sr, sr-Cyrl, en);
@@ -61,6 +61,7 @@
       <details class="sci" data-style="blueprint"><summary data-i18n="sci.blueprint.title"></summary><div class="sci-body" data-i18n="sci.blueprint" data-i18n-html></div></details>
       <details class="sci" data-style="calligraphy"><summary data-i18n="sci.calligraphy.title"></summary><div class="sci-body" data-i18n="sci.calligraphy" data-i18n-html></div></details>
       <details class="sci" data-style="astronomy"><summary data-i18n="sci.astronomy.title"></summary><div class="sci-body" data-i18n="sci.astronomy" data-i18n-html></div></details>
+      <details class="sci" data-style="blackhole"><summary data-i18n="sci.blackhole.title"></summary><div class="sci-body" data-i18n="sci.blackhole" data-i18n-html></div></details>
       <details class="sci" data-style="physics"><summary data-i18n="sci.physics.title"></summary><div class="sci-body" data-i18n="sci.physics" data-i18n-html></div></details>
       <details class="sci" data-style="quantum"><summary data-i18n="sci.quantum.title"></summary><div class="sci-body" data-i18n="sci.quantum" data-i18n-html></div></details>
       <details class="sci" data-style="hologram"><summary data-i18n="sci.hologram.title"></summary><div class="sci-body" data-i18n="sci.hologram" data-i18n-html></div></details>
@@ -83,6 +84,7 @@
             <option value="calligraphy" data-i18n="style.calligraphy">Kaligrafija: široko pero C±(t)</option>
             <option value="physics" data-i18n="style.physics">Fizika: čestice u polju</option>
             <option value="astronomy" data-i18n="style.astronomy">Astronomija: planete i komete</option>
+            <option value="blackhole" data-i18n="style.blackhole">Crna rupa: gravitaciono sočivo</option>
           </select>
         </label>
         <button id="sciBtn" type="button" class="sci-btn" data-i18n="sci.button">Kako ovo radi?</button>
@@ -115,6 +117,18 @@
             </select>
           </label>
           <span class="field-hint" data-i18n="astro.hint"></span>
+        </div>
+
+        <div class="field" id="lensField" hidden>
+          <label class="field">
+            <span class="label"><span data-i18n="lens.position">Položaj crne rupe</span> <output id="lensPositionOut"></output></span>
+            <input id="lensPosition" type="range" min="0" max="100" step="1" value="50" />
+          </label>
+          <label class="field">
+            <span class="label"><span data-i18n="lens.strength" data-i18n-html>Ajnštajnov poluprečnik θ<sub>E</sub></span> <output id="lensStrengthOut"></output></span>
+            <input id="lensStrength" type="range" min="2" max="12" step="0.5" value="6" />
+          </label>
+          <span class="field-hint" data-i18n="lens.hint"></span>
         </div>
 
         <div class="field" id="physicsField" hidden>
@@ -225,9 +239,6 @@
             <button type="button" role="tab" data-format="txt" aria-selected="false">TXT</button>
             <button type="button" role="tab" data-format="svg" aria-selected="false">SVG</button>
             <button type="button" role="tab" data-format="slika" aria-selected="false" data-i18n="tab.slika">Slika</button>
-            <button type="button" role="tab" data-format="zvuk" aria-selected="false" data-i18n="tab.zvuk">Zvuk</button>
-            <button type="button" role="tab" data-format="kvant" aria-selected="false" data-i18n="tab.kvant">Kvant</button>
-            <button type="button" role="tab" data-format="hologram" aria-selected="false" data-i18n="tab.hologram">Hologram</button>
           </div>
           <div class="export-head">
             <h2 id="exportTitle"></h2>
@@ -236,6 +247,63 @@
           <p class="hint" id="exportHint"></p>
           <ol id="exprList" class="expr-list"></ol>
           <pre id="exportText" class="export-text" hidden></pre>
+          <div id="imagePanel" class="image-panel" hidden>
+            <div class="image-options">
+              <label class="field">
+                <span class="label" data-i18n="preset">Format</span>
+                <select id="preset">
+                  <option value="facebook" selected data-i18n="preset.facebook">Facebook naslovna</option>
+                  <option value="linkedin" data-i18n="preset.linkedin">LinkedIn naslovna</option>
+                  <option value="instagram" data-i18n="preset.instagram">Instagram objava</option>
+                  <option value="majica" data-i18n="preset.majica">Majica (štampa)</option>
+                  <option value="solja" data-i18n="preset.solja">Šolja (štampa)</option>
+                  <option value="natpis" data-i18n="preset.natpis">Samo natpis</option>
+                </select>
+              </label>
+              <fieldset class="checks">
+                <legend class="label" data-i18n="imageParts">Šta je na slici</legend>
+                <label><input id="caption" type="checkbox" checked /> <span data-i18n="caption">Jednačina stila</span></label>
+                <label><input id="counts" type="checkbox" checked /> <span data-i18n="counts">Broj slova i krivih</span></label>
+                <label><input id="wall" type="checkbox" /> <span data-i18n="wall">Jednačine u pozadini</span></label>
+                <label><input id="tracesImage" type="checkbox" /> <span data-i18n="traces">Tragovi nastanka</span></label>
+                <label><input id="liveEqImage" type="checkbox" checked /> <span data-i18n="liveEqImage">Jednačina uživo (GIF, animirani SVG)</span></label>
+                <label><input id="transparent" type="checkbox" /> <span data-i18n="transparent">Providna pozadina (PNG, SVG)</span></label>
+                <label><input id="posterGrid" type="checkbox" /> <span data-i18n="posterGrid">XY mreža oko natpisa</span></label>
+                <label><input id="gridFull" type="checkbox" /> <span data-i18n="gridFull">Koordinatni sistem preko cele slike</span></label>
+              </fieldset>
+              <div class="field moment-field">
+                <label class="label" for="moment"><span data-i18n="moment">Trenutak ispisa</span> <output id="momentOut"></output></label>
+                <input id="moment" type="range" min="1" max="1000" step="1" value="1000" />
+                <div class="moment-buttons">
+                  <button type="button" id="momentStart" data-i18n="moment.start">Početak</button>
+                  <button type="button" id="momentRandom" data-i18n="moment.random">Nasumično</button>
+                  <button type="button" id="momentEnd" data-i18n="moment.end">Kraj</button>
+                  <button type="button" id="momentPlot" data-i18n="moment.plot">Sa grafika</button>
+                </div>
+                <span class="field-hint" data-i18n="moment.hint"></span>
+              </div>
+              <p class="hint" id="presetNote"></p>
+            </div>
+            <div id="imagePreview" class="image-preview" data-i18n-aria="preview.aria" aria-label="Pregled kompozicije"></div>
+            <p class="hint" id="gifStatus" aria-live="polite"></p>
+          </div>
+        </div>
+
+        <details class="panel lab" id="lab">
+          <summary class="lab-summary">
+            <span class="lab-name" data-i18n="lab.title">Laboratorija</span>
+            <span class="lab-sub" data-i18n="lab.sub">Zvuk · Kvant · Hologram: šta se dešava sa tvojim natpisom, u bilo kom stilu</span>
+          </summary>
+          <div class="tabs" role="tablist" data-i18n-aria="lab.aria" aria-label="Laboratorija">
+            <button type="button" role="tab" data-format="zvuk" aria-selected="true" data-i18n="tab.zvuk">Zvuk</button>
+            <button type="button" role="tab" data-format="kvant" aria-selected="false" data-i18n="tab.kvant">Kvant</button>
+            <button type="button" role="tab" data-format="hologram" aria-selected="false" data-i18n="tab.hologram">Hologram</button>
+          </div>
+          <div class="export-head">
+            <h2 id="labTitle"></h2>
+            <div class="actions" id="labActions"></div>
+          </div>
+          <p class="hint" id="labHint"></p>
           <div id="soundPanel" class="sound-panel" hidden>
             <canvas id="spectroCanvas" class="spectro" role="img" data-i18n-aria="spectro.aria" aria-label="Spektrogram zvuka natpisa"></canvas>
             <p class="hint" id="spectroNote"></p>
@@ -325,47 +393,7 @@
             <pre id="holoEq" class="export-text wave-eq"></pre>
             <button type="button" class="link-btn" data-sci="hologram" data-i18n="sci.button">Kako ovo radi?</button>
           </div>
-          <div id="imagePanel" class="image-panel" hidden>
-            <div class="image-options">
-              <label class="field">
-                <span class="label" data-i18n="preset">Format</span>
-                <select id="preset">
-                  <option value="facebook" selected data-i18n="preset.facebook">Facebook naslovna</option>
-                  <option value="linkedin" data-i18n="preset.linkedin">LinkedIn naslovna</option>
-                  <option value="instagram" data-i18n="preset.instagram">Instagram objava</option>
-                  <option value="majica" data-i18n="preset.majica">Majica (štampa)</option>
-                  <option value="solja" data-i18n="preset.solja">Šolja (štampa)</option>
-                  <option value="natpis" data-i18n="preset.natpis">Samo natpis</option>
-                </select>
-              </label>
-              <fieldset class="checks">
-                <legend class="label" data-i18n="imageParts">Šta je na slici</legend>
-                <label><input id="caption" type="checkbox" checked /> <span data-i18n="caption">Jednačina stila</span></label>
-                <label><input id="counts" type="checkbox" checked /> <span data-i18n="counts">Broj slova i krivih</span></label>
-                <label><input id="wall" type="checkbox" /> <span data-i18n="wall">Jednačine u pozadini</span></label>
-                <label><input id="tracesImage" type="checkbox" /> <span data-i18n="traces">Tragovi nastanka</span></label>
-                <label><input id="liveEqImage" type="checkbox" checked /> <span data-i18n="liveEqImage">Jednačina uživo (GIF, animirani SVG)</span></label>
-                <label><input id="transparent" type="checkbox" /> <span data-i18n="transparent">Providna pozadina (PNG, SVG)</span></label>
-                <label><input id="posterGrid" type="checkbox" /> <span data-i18n="posterGrid">XY mreža oko natpisa</span></label>
-                <label><input id="gridFull" type="checkbox" /> <span data-i18n="gridFull">Koordinatni sistem preko cele slike</span></label>
-              </fieldset>
-              <div class="field moment-field">
-                <label class="label" for="moment"><span data-i18n="moment">Trenutak ispisa</span> <output id="momentOut"></output></label>
-                <input id="moment" type="range" min="1" max="1000" step="1" value="1000" />
-                <div class="moment-buttons">
-                  <button type="button" id="momentStart" data-i18n="moment.start">Početak</button>
-                  <button type="button" id="momentRandom" data-i18n="moment.random">Nasumično</button>
-                  <button type="button" id="momentEnd" data-i18n="moment.end">Kraj</button>
-                  <button type="button" id="momentPlot" data-i18n="moment.plot">Sa grafika</button>
-                </div>
-                <span class="field-hint" data-i18n="moment.hint"></span>
-              </div>
-              <p class="hint" id="presetNote"></p>
-            </div>
-            <div id="imagePreview" class="image-preview" data-i18n-aria="preview.aria" aria-label="Pregled kompozicije"></div>
-            <p class="hint" id="gifStatus" aria-live="polite"></p>
-          </div>
-        </div>
+        </details>
 
       </section>
     </main>
