@@ -1,7 +1,7 @@
 JNX MathGlyph: third-party components and their licenses
 =====================================================
 
-JNX MathGlyph itself: © 2026 JNX Lab, all rights reserved. A JJNN Lab project · powered by 2J2N Engine.
+JNX MathGlyph itself: © 2026 JJNN Lab, all rights reserved. A JJNN Lab project · powered by 2J2N Engine.
 The components below are used under their own licenses, reproduced in full.
 
 ----------------------------------------------------------------
