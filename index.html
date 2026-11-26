@@ -6,8 +6,8 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-D9iTlw_Z.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BvblT4vb.css">
+    <script type="module" crossorigin src="./assets/index-Do-P1Fw4.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-hjK_9Fxm.css">
   </head>
   <!--
     Texts: every element with data-i18n="key" is filled from src/i18n.ts (sr, sr-Cyrl, en);
@@ -80,17 +80,23 @@
         <label class="field">
           <span class="label" data-i18n="style">Matematički stil</span>
           <select id="style">
-            <option value="bezier" selected data-i18n="style.bezier">Bézier: kubne krive iz fonta</option>
-            <option value="fourier" data-i18n="style.fourier">Fourier: trigonometrijski redovi</option>
-            <option value="minimal" data-i18n="style.minimal">Minimal: duži i lukovi elipsi</option>
-            <option value="blueprint" data-i18n="style.blueprint">Blueprint: slova + konstrukcija</option>
-            <option value="calligraphy" data-i18n="style.calligraphy">Kaligrafija: široko pero C±(t)</option>
-            <option value="physics" data-i18n="style.physics">Fizika: čestice u polju</option>
-            <option value="astronomy" data-i18n="style.astronomy">Astronomija: planete i komete</option>
-            <option value="blackhole" data-i18n="style.blackhole">Crna rupa: gravitaciono sočivo</option>
-            <option value="thermo" data-i18n="style.thermo">Termodinamika: P–V dijagram</option>
-            <option value="robot" data-i18n="style.robot">Robotska ruka: kinematika</option>
-            <option value="complex" data-i18n="style.complex">Kompleksne funkcije: −z, i·z, z², 1/z, eᶻ</option>
+            <optgroup label="Matematika" data-i18n-label="styleGroup.math">
+              <option value="bezier" selected data-i18n="style.bezier">Bézier: kubne krive iz fonta</option>
+              <option value="fourier" data-i18n="style.fourier">Fourier: trigonometrijski redovi</option>
+              <option value="minimal" data-i18n="style.minimal">Minimal: duži i lukovi elipsi</option>
+              <option value="complex" data-i18n="style.complex">Kompleksne funkcije: −z, i·z, z², 1/z, eᶻ</option>
+            </optgroup>
+            <optgroup label="Fizika i astronomija" data-i18n-label="styleGroup.physics">
+              <option value="physics" data-i18n="style.physics">Fizika: čestice u polju</option>
+              <option value="astronomy" data-i18n="style.astronomy">Astronomija: planete i komete</option>
+              <option value="blackhole" data-i18n="style.blackhole">Crna rupa: gravitaciono sočivo</option>
+              <option value="thermo" data-i18n="style.thermo">Termodinamika: P–V dijagram</option>
+            </optgroup>
+            <optgroup label="Tehnika i umetnost" data-i18n-label="styleGroup.craft">
+              <option value="blueprint" data-i18n="style.blueprint">Blueprint: slova + konstrukcija</option>
+              <option value="calligraphy" data-i18n="style.calligraphy">Kaligrafija: široko pero C±(t)</option>
+              <option value="robot" data-i18n="style.robot">Robotska ruka: kinematika</option>
+            </optgroup>
           </select>
         </label>
         <button id="sciBtn" type="button" class="sci-btn" data-i18n="sci.button">Kako ovo radi?</button>
@@ -190,50 +196,54 @@
           <span class="field-hint" data-i18n="physics.hint"></span>
         </div>
 
-        <label class="field">
-          <span class="label"><span data-i18n="spacing">Razmak između slova</span> <output id="spacingOut"></output></span>
-          <input id="spacing" type="range" min="0" max="4" step="0.1" value="0.6" />
-        </label>
+        <label class="check-line"><input id="traces" type="checkbox" /> <span data-i18n="traces">Tragovi nastanka</span></label>
 
-        <label class="field">
-          <span class="label" data-i18n="decimals">Preciznost koeficijenata</span>
-          <select id="decimals">
-            <option value="1" data-i18n="decimals.1">1 decimala</option>
-            <option value="2" selected data-i18n="decimals.2">2 decimale</option>
-            <option value="3" data-i18n="decimals.3">3 decimale</option>
-          </select>
-        </label>
-
-        <label class="field">
-          <span class="label" data-i18n="plotTheme">Tema ispisa</span>
-          <select id="theme">
-            <option value="app" selected data-i18n="theme.app">Kao aplikacija</option>
-            <option value="svetla" data-i18n="theme.svetla">Svetla</option>
-            <option value="tamna" data-i18n="theme.tamna">Tamna</option>
-            <option value="neon" data-i18n="theme.neon">Neon: tamna, sjaj</option>
-            <option value="papir" data-i18n="theme.papir">Papir: sepija</option>
-            <option value="kreda" data-i18n="theme.kreda">Kreda: školska tabla</option>
-            <option value="nacrt" data-i18n="theme.nacrt">Nacrt: plavi papir</option>
-          </select>
-          <span class="field-hint" id="themeHint"></span>
-        </label>
-
-        <label class="field">
-          <span class="label"><span data-i18n="inkWidth">Debljina linije (samo prikaz)</span> <output id="inkWidthOut"></output></span>
-          <input id="inkWidth" type="range" min="0.5" max="5" step="0.25" value="2" />
-        </label>
-
-        <fieldset class="checks">
-          <label><input id="grid" type="checkbox" checked /> <span data-i18n="grid">XY mreža</span></label>
-          <label><input id="axes" type="checkbox" checked /> <span data-i18n="axes">Koordinatne ose</span></label>
-          <label><input id="nodes" type="checkbox" /> <span data-i18n="nodes">Čvorovi (krajevi krivih)</span></label>
-          <label><input id="traces" type="checkbox" /> <span data-i18n="traces">Tragovi nastanka</span></label>
-          <label><input id="italic" type="checkbox" /> <span data-i18n="italic">Kurziv</span></label>
-        </fieldset>
-
+        <details class="more" id="moreSettings">
+          <summary data-i18n="more.settings">Više podešavanja</summary>
+          <label class="field">
+            <span class="label"><span data-i18n="spacing">Razmak između slova</span> <output id="spacingOut"></output></span>
+            <input id="spacing" type="range" min="0" max="4" step="0.1" value="0.6" />
+          </label>
+  
+          <label class="field">
+            <span class="label" data-i18n="decimals">Preciznost koeficijenata</span>
+            <select id="decimals">
+              <option value="1" data-i18n="decimals.1">1 decimala</option>
+              <option value="2" selected data-i18n="decimals.2">2 decimale</option>
+              <option value="3" data-i18n="decimals.3">3 decimale</option>
+            </select>
+          </label>
+  
+          <label class="field">
+            <span class="label" data-i18n="plotTheme">Tema ispisa</span>
+            <select id="theme">
+              <option value="app" selected data-i18n="theme.app">Kao aplikacija</option>
+              <option value="svetla" data-i18n="theme.svetla">Svetla</option>
+              <option value="tamna" data-i18n="theme.tamna">Tamna</option>
+              <option value="neon" data-i18n="theme.neon">Neon: tamna, sjaj</option>
+              <option value="papir" data-i18n="theme.papir">Papir: sepija</option>
+              <option value="kreda" data-i18n="theme.kreda">Kreda: školska tabla</option>
+              <option value="nacrt" data-i18n="theme.nacrt">Nacrt: plavi papir</option>
+            </select>
+            <span class="field-hint" id="themeHint"></span>
+          </label>
+  
+          <label class="field">
+            <span class="label"><span data-i18n="inkWidth">Debljina linije (samo prikaz)</span> <output id="inkWidthOut"></output></span>
+            <input id="inkWidth" type="range" min="0.5" max="5" step="0.25" value="2" />
+          </label>
+  
+          <fieldset class="checks">
+            <label><input id="grid" type="checkbox" checked /> <span data-i18n="grid">XY mreža</span></label>
+            <label><input id="axes" type="checkbox" checked /> <span data-i18n="axes">Koordinatne ose</span></label>
+            <label><input id="nodes" type="checkbox" /> <span data-i18n="nodes">Čvorovi (krajevi krivih)</span></label>
+            <label><input id="italic" type="checkbox" /> <span data-i18n="italic">Kurziv</span></label>
+          </fieldset>
+  
+          <p class="note" id="fontNote" data-i18n="note.font">Font: Noto Sans (SIL Open Font License).</p>
+          <p class="note" id="geoNote" data-i18n="note.geo" hidden></p>
+        </details>
         <p class="note" data-i18n="note.principle">Sve linije na grafiku nastaju računanjem jednačina sa desne strane, a ne crtanjem fonta.</p>
-        <p class="note" id="fontNote" data-i18n="note.font">Font: Noto Sans (SIL Open Font License).</p>
-        <p class="note" id="geoNote" data-i18n="note.geo" hidden></p>
       </aside>
 
       <section class="stage">
@@ -301,26 +311,33 @@
               </label>
               <fieldset class="checks">
                 <legend class="label" data-i18n="imageParts">Šta je na slici</legend>
+                <label><input id="styleName" type="checkbox" /> <span data-i18n="styleName">Naziv stila</span></label>
+                <label><input id="styleParams" type="checkbox" /> <span data-i18n="styleParams">Parametri stila</span></label>
                 <label><input id="caption" type="checkbox" checked /> <span data-i18n="caption">Jednačina stila</span></label>
                 <label><input id="counts" type="checkbox" checked /> <span data-i18n="counts">Broj slova i krivih</span></label>
-                <label><input id="wall" type="checkbox" /> <span data-i18n="wall">Jednačine u pozadini</span></label>
-                <label><input id="tracesImage" type="checkbox" /> <span data-i18n="traces">Tragovi nastanka</span></label>
-                <label><input id="liveEqImage" type="checkbox" checked /> <span data-i18n="liveEqImage">Jednačina uživo (GIF, animirani SVG)</span></label>
-                <label><input id="transparent" type="checkbox" /> <span data-i18n="transparent">Providna pozadina (PNG, SVG)</span></label>
-                <label><input id="posterGrid" type="checkbox" /> <span data-i18n="posterGrid">XY mreža oko natpisa</span></label>
-                <label><input id="gridFull" type="checkbox" /> <span data-i18n="gridFull">Koordinatni sistem preko cele slike</span></label>
               </fieldset>
-              <div class="field moment-field">
-                <label class="label" for="moment"><span data-i18n="moment">Trenutak ispisa</span> <output id="momentOut"></output></label>
-                <input id="moment" type="range" min="1" max="1000" step="1" value="1000" />
-                <div class="moment-buttons">
-                  <button type="button" id="momentStart" data-i18n="moment.start">Početak</button>
-                  <button type="button" id="momentRandom" data-i18n="moment.random">Nasumično</button>
-                  <button type="button" id="momentEnd" data-i18n="moment.end">Kraj</button>
-                  <button type="button" id="momentPlot" data-i18n="moment.plot">Sa grafika</button>
+              <details class="more" id="moreImage">
+                <summary data-i18n="more.image">Više opcija slike</summary>
+                <fieldset class="checks">
+                  <label><input id="wall" type="checkbox" /> <span data-i18n="wall">Jednačine u pozadini</span></label>
+                  <label><input id="tracesImage" type="checkbox" /> <span data-i18n="traces">Tragovi nastanka</span></label>
+                  <label><input id="liveEqImage" type="checkbox" checked /> <span data-i18n="liveEqImage">Jednačina uživo (GIF, animirani SVG)</span></label>
+                  <label><input id="transparent" type="checkbox" /> <span data-i18n="transparent">Providna pozadina (PNG, SVG)</span></label>
+                  <label><input id="posterGrid" type="checkbox" /> <span data-i18n="posterGrid">XY mreža oko natpisa</span></label>
+                  <label><input id="gridFull" type="checkbox" /> <span data-i18n="gridFull">Koordinatni sistem preko cele slike</span></label>
+                </fieldset>
+                <div class="field moment-field">
+                  <label class="label" for="moment"><span data-i18n="moment">Trenutak ispisa</span> <output id="momentOut"></output></label>
+                  <input id="moment" type="range" min="1" max="1000" step="1" value="1000" />
+                  <div class="moment-buttons">
+                    <button type="button" id="momentStart" data-i18n="moment.start">Početak</button>
+                    <button type="button" id="momentRandom" data-i18n="moment.random">Nasumično</button>
+                    <button type="button" id="momentEnd" data-i18n="moment.end">Kraj</button>
+                    <button type="button" id="momentPlot" data-i18n="moment.plot">Sa grafika</button>
+                  </div>
+                  <span class="field-hint" data-i18n="moment.hint"></span>
                 </div>
-                <span class="field-hint" data-i18n="moment.hint"></span>
-              </div>
+              </details>
               <p class="hint" id="presetNote"></p>
             </div>
             <div id="imagePreview" class="image-preview" data-i18n-aria="preview.aria" aria-label="Pregled kompozicije"></div>
