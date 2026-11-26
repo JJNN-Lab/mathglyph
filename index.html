@@ -6,8 +6,8 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-heuzM5tT.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-WzonnvlR.css">
+    <script type="module" crossorigin src="./assets/index-CfDHDZaD.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-B5OF_du2.css">
   </head>
   <!--
     Texts: every element with data-i18n="key" is filled from src/i18n.ts (sr, sr-Cyrl, en);
@@ -60,6 +60,7 @@
       <details class="sci" data-style="minimal"><summary data-i18n="sci.minimal.title"></summary><div class="sci-body" data-i18n="sci.minimal" data-i18n-html></div></details>
       <details class="sci" data-style="blueprint"><summary data-i18n="sci.blueprint.title"></summary><div class="sci-body" data-i18n="sci.blueprint" data-i18n-html></div></details>
       <details class="sci" data-style="calligraphy"><summary data-i18n="sci.calligraphy.title"></summary><div class="sci-body" data-i18n="sci.calligraphy" data-i18n-html></div></details>
+      <details class="sci" data-style="physics"><summary data-i18n="sci.physics.title"></summary><div class="sci-body" data-i18n="sci.physics" data-i18n-html></div></details>
     </dialog>
 
     <main class="layout">
@@ -77,6 +78,7 @@
             <option value="minimal" data-i18n="style.minimal">Minimal: duži i lukovi elipsi</option>
             <option value="blueprint" data-i18n="style.blueprint">Blueprint: slova + konstrukcija</option>
             <option value="calligraphy" data-i18n="style.calligraphy">Kaligrafija: široko pero C±(t)</option>
+            <option value="physics" data-i18n="style.physics">Fizika: čestice u polju</option>
           </select>
         </label>
         <button id="sciBtn" type="button" class="sci-btn" data-i18n="sci.button">Kako ovo radi?</button>
@@ -97,6 +99,26 @@
             <input id="penWidth" type="range" min="0.4" max="3" step="0.1" value="1.4" />
           </label>
           <span class="field-hint" data-i18n="pen.hint"></span>
+        </div>
+
+        <div class="field" id="physicsField" hidden>
+          <label class="field">
+            <span class="label" data-i18n="physics.particle">Čestica</span>
+            <select id="particle">
+              <option value="electron" selected data-i18n="particle.electron">elektron</option>
+              <option value="proton" data-i18n="particle.proton">proton</option>
+              <option value="alpha" data-i18n="particle.alpha">alfa čestica</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="label" data-i18n="physics.speed">Brzina čestice</span>
+            <select id="particleSpeed">
+              <option value="100000">10⁵ m/s</option>
+              <option value="1000000" selected>10⁶ m/s</option>
+              <option value="10000000">10⁷ m/s</option>
+            </select>
+          </label>
+          <span class="field-hint" data-i18n="physics.hint"></span>
         </div>
 
         <label class="field">
