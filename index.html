@@ -6,8 +6,8 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-Bkmy6_6J.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-1HQVVDKD.css">
+    <script type="module" crossorigin src="./assets/index-58Oededa.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DZ2WFcFC.css">
   </head>
   <!--
     Texts: every element with data-i18n="key" is filled from src/i18n.ts (sr, sr-Cyrl, en);
@@ -74,13 +74,20 @@
       <details class="sci" data-style="hologram"><summary data-i18n="sci.hologram.title"></summary><div class="sci-body" data-i18n="sci.hologram" data-i18n-html></div></details>
     </dialog>
 
-    <main class="layout">
-      <aside class="panel controls" data-i18n-aria="controls.aria" aria-label="Podešavanja">
+    <main class="app" id="app" data-section="write">
+      <nav class="rail" role="tablist" aria-orientation="vertical" data-i18n-aria="nav.aria" aria-label="Odeljci aplikacije">
+        <button type="button" role="tab" id="nav-write" data-section="write" aria-controls="screen" aria-selected="true"><span class="rail-ico" aria-hidden="true">∿</span><span data-i18n="nav.write">Ispis</span></button>
+        <button type="button" role="tab" id="nav-equations" data-section="equations" aria-controls="screen" aria-selected="false" tabindex="-1"><span class="rail-ico" aria-hidden="true">ƒ</span><span data-i18n="eq.title">Jednačine</span></button>
+        <button type="button" role="tab" id="nav-lab" data-section="lab" aria-controls="screen" aria-selected="false" tabindex="-1"><span class="rail-ico" aria-hidden="true">⚗</span><span data-i18n="lab.title">Laboratorija</span></button>
+        <button type="button" role="tab" id="nav-image" data-section="image" aria-controls="screen" aria-selected="false" tabindex="-1"><span class="rail-ico" aria-hidden="true">⎙</span><span data-i18n="img.title">Slika i štampa</span></button>
+      </nav>
+
+      <!-- Above the screen: the text, the style and its parameters, in one row. -->
+      <div class="panel topbar" role="group" data-i18n-aria="controls.aria" aria-label="Podešavanja">
         <label class="field">
           <span class="label" data-i18n="text">Tekst</span>
-          <textarea id="text" rows="4" spellcheck="false"></textarea>
+          <textarea id="text" rows="2" spellcheck="false"></textarea>
         </label>
-
         <label class="field">
           <span class="label" data-i18n="style">Matematički stil</span>
           <select id="style">
@@ -105,7 +112,6 @@
           </select>
         </label>
         <button id="sciBtn" type="button" class="sci-btn" data-i18n="sci.button">Kako ovo radi?</button>
-
         <label class="field" id="harmonicsField" hidden>
           <span class="label"><span data-i18n="harmonics">Broj harmonika N</span> <output id="harmonicsOut"></output></span>
           <input id="harmonics" type="range" min="1" max="100" step="1" value="20" />
@@ -208,81 +214,11 @@
           </label>
           <span class="field-hint" data-i18n="physics.hint"></span>
         </div>
+      </div>
 
-        <label class="check-line"><input id="traces" type="checkbox" /> <span data-i18n="traces">Tragovi nastanka</span></label>
-        <label class="check-line"><input id="enhanced" type="checkbox" checked /> <span data-i18n="enhanced">Pojačan prikaz</span></label>
-
-        <details class="more" id="moreSettings">
-          <summary data-i18n="more.settings">Više podešavanja</summary>
-          <label class="field">
-            <span class="label"><span data-i18n="spacing">Razmak između slova</span> <output id="spacingOut"></output></span>
-            <input id="spacing" type="range" min="0" max="4" step="0.1" value="0.6" />
-          </label>
-  
-          <label class="field">
-            <span class="label" data-i18n="decimals">Preciznost koeficijenata</span>
-            <select id="decimals">
-              <option value="1" data-i18n="decimals.1">1 decimala</option>
-              <option value="2" selected data-i18n="decimals.2">2 decimale</option>
-              <option value="3" data-i18n="decimals.3">3 decimale</option>
-            </select>
-          </label>
-  
-          <label class="field">
-            <span class="label" data-i18n="plotTheme">Tema ispisa</span>
-            <select id="theme">
-              <option value="app" selected data-i18n="theme.app">Kao aplikacija</option>
-              <option value="svetla" data-i18n="theme.svetla">Svetla</option>
-              <option value="tamna" data-i18n="theme.tamna">Tamna</option>
-              <option value="neon" data-i18n="theme.neon">Neon: tamna, sjaj</option>
-              <option value="papir" data-i18n="theme.papir">Papir: sepija</option>
-              <option value="kreda" data-i18n="theme.kreda">Kreda: školska tabla</option>
-              <option value="nacrt" data-i18n="theme.nacrt">Nacrt: plavi papir</option>
-            </select>
-            <span class="field-hint" id="themeHint"></span>
-          </label>
-  
-          <label class="field">
-            <span class="label"><span data-i18n="inkWidth">Debljina linije (samo prikaz)</span> <output id="inkWidthOut"></output></span>
-            <input id="inkWidth" type="range" min="0.5" max="5" step="0.25" value="2" />
-          </label>
-  
-          <fieldset class="checks">
-            <label><input id="grid" type="checkbox" checked /> <span data-i18n="grid">XY mreža</span></label>
-            <label><input id="axes" type="checkbox" checked /> <span data-i18n="axes">Koordinatne ose</span></label>
-            <label><input id="nodes" type="checkbox" /> <span data-i18n="nodes">Čvorovi (krajevi krivih)</span></label>
-            <label><input id="italic" type="checkbox" /> <span data-i18n="italic">Kurziv</span></label>
-          </fieldset>
-  
-          <p class="note" id="fontNote" data-i18n="note.font">Font: Noto Sans (SIL Open Font License).</p>
-          <p class="note" id="geoNote" data-i18n="note.geo" hidden></p>
-        </details>
-        <p class="note" data-i18n="note.principle">Sve linije na grafiku nastaju računanjem jednačina sa desne strane, a ne crtanjem fonta.</p>
-      </aside>
-
-      <section class="stage">
-        <div class="panel plot-wrap">
-          <div class="anim-bar" role="group" data-i18n-aria="anim.aria" aria-label="Animacija ispisivanja">
-            <button id="play" type="button" class="primary">▶ Ispiši</button>
-            <button id="restart" type="button" data-i18n-title="anim.restart" data-i18n-aria="anim.restart" title="Ispočetka" aria-label="Ispočetka">⟲</button>
-            <button id="shareLink" type="button" data-i18n="share.button" data-i18n-title="share.title" title="Kopiraj link do ovog natpisa">🔗 Link</button>
-            <output id="shareOut" class="sr-only" aria-live="polite"></output>
-            <label class="anim-speed">
-              <select id="pace" data-i18n-aria="anim.pace.aria" aria-label="Kako se meri brzina ispisa">
-                <option value="length" data-i18n="anim.pace.length">Trajanje</option>
-                <option value="equation" data-i18n="anim.pace.equation">Po jednačini</option>
-                <option value="letter" data-i18n="anim.pace.letter">Po slovu</option>
-              </select>
-              <input id="speed" type="range" min="2" max="30" step="1" value="8" data-i18n-aria="anim.speed.aria" aria-label="Trajanje ispisa u sekundama" />
-              <output id="speedOut" class="anim-t">8 s</output>
-            </label>
-            <label data-i18n-title="fit.title" title="Isključi za veća slova, uz pomeranje levo-desno"><input id="fit" type="checkbox" checked /> <span data-i18n="fit">Ceo natpis na ekranu</span></label>
-            <label id="epicyclesField" hidden><input id="epicycles" type="checkbox" checked /> <span data-i18n="anim.epicycles">Epicikli</span></label>
-            <label id="liveEqField"><input id="liveEq" type="checkbox" checked /> <span data-i18n="anim.liveEq">Jednačina uživo</span></label>
-            <label id="writingSoundField" data-i18n-title="anim.sound.title" title="Ton prati pero: visina tona je visina pera, levo-desno je x, jačina je brzina"><input id="writingSound" type="checkbox" /> <span data-i18n="anim.sound">Zvuk ispisa</span> <output id="writingSoundOut" class="anim-t"></output></label>
-            <input id="scrub" type="range" min="0" max="1000" step="1" value="1000" data-i18n-aria="anim.scrub" aria-label="Napredak ispisivanja" />
-            <output id="scrubOut" class="anim-t"></output>
-          </div>
+      <!-- The screen: fixed outside, the output of the selected section inside. -->
+      <div class="panel screen" id="screen" role="tabpanel">
+        <div class="pane" data-for="write">
           <div class="plot-area">
             <div id="liveEqBox" class="live-eq-box" role="note" data-i18n-aria="anim.liveEq.aria" aria-label="Jednačina krive koja se upravo ispisuje" hidden>
               <div class="live-eq-head"><span id="liveEqLabel" class="live-eq-label"></span><span id="liveEqPoint" class="live-eq-point"></span></div>
@@ -290,7 +226,6 @@
             </div>
             <div id="plot" class="plot-scroll" tabindex="0" role="group" data-i18n-aria="plot.aria" aria-label="Grafik"></div>
           </div>
-          <div id="stats" class="stats"></div>
           <figure id="complexSide" class="lens-side" hidden>
             <canvas id="complexSideCanvas" class="complex-side" role="img" data-i18n-aria="complexSide.aria" aria-label="Ravan z obojena funkcijom f"></canvas>
             <figcaption class="hint" id="complexSideNote"></figcaption>
@@ -319,129 +254,15 @@
             <figcaption class="hint" id="lensSideNote"></figcaption>
           </figure>
         </div>
-
-        <div class="panel glyph" id="glyphPanel" hidden>
-          <div class="export-head">
-            <h2 id="glyphTitle"></h2>
-            <button id="closeGlyph" type="button" data-i18n-aria="close" aria-label="Zatvori">×</button>
-          </div>
-          <p class="hint" id="glyphHint"></p>
-          <div id="glyphEq" class="glyph-eq"></div>
-        </div>
-
-        <details class="panel image-section" id="imageSection">
-          <summary class="lab-summary">
-            <span class="lab-name" data-i18n="img.title">Slika i štampa</span>
-            <span class="lab-sub" data-i18n="img.sub">PNG, GIF i animirani SVG: za mreže, majicu i šolju</span>
-          </summary>
-          <p class="hint" id="imageHint"></p>
-          <div id="imagePanel" class="image-panel">
-            <div class="image-options">
-              <label class="field">
-                <span class="label" data-i18n="preset">Format</span>
-                <select id="preset">
-                  <option value="facebook" selected data-i18n="preset.facebook">Facebook naslovna</option>
-                  <option value="linkedin" data-i18n="preset.linkedin">LinkedIn naslovna</option>
-                  <option value="instagram" data-i18n="preset.instagram">Instagram objava</option>
-                  <option value="majica" data-i18n="preset.majica">Majica (štampa)</option>
-                  <option value="solja" data-i18n="preset.solja">Šolja (štampa)</option>
-                  <option value="natpis" data-i18n="preset.natpis">Samo natpis</option>
-                </select>
-              </label>
-              <fieldset class="order-field">
-                <legend class="label" data-i18n="imageParts">Šta je na slici</legend>
-                <span class="field-hint" data-i18n="order.hint">Prevuci ⠿ (ili ↑ ↓) da promeniš redosled na slici, odozgo nadole.</span>
-                <ol id="imageOrder" class="order-list">
-                  <li data-part="inscription"><span class="grip" aria-hidden="true">⠿</span><span class="order-label" data-i18n="order.inscription">Ispis (natpis)</span><span class="order-move"><button type="button" class="order-up" data-i18n-aria="order.up" aria-label="Pomeri gore">↑</button><button type="button" class="order-down" data-i18n-aria="order.down" aria-label="Pomeri dole">↓</button></span></li>
-                  <li data-part="style"><span class="grip" aria-hidden="true">⠿</span><span class="order-label"><label><input id="styleName" type="checkbox" /> <span data-i18n="styleName">Naziv stila</span></label> <label><input id="styleParams" type="checkbox" /> <span data-i18n="styleParams">Parametri stila</span></label></span><span class="order-move"><button type="button" class="order-up" data-i18n-aria="order.up" aria-label="Pomeri gore">↑</button><button type="button" class="order-down" data-i18n-aria="order.down" aria-label="Pomeri dole">↓</button></span></li>
-                  <li data-part="formula"><span class="grip" aria-hidden="true">⠿</span><span class="order-label"><label><input id="caption" type="checkbox" checked /> <span data-i18n="caption">Jednačina stila</span></label></span><span class="order-move"><button type="button" class="order-up" data-i18n-aria="order.up" aria-label="Pomeri gore">↑</button><button type="button" class="order-down" data-i18n-aria="order.down" aria-label="Pomeri dole">↓</button></span></li>
-                  <li data-part="counts"><span class="grip" aria-hidden="true">⠿</span><span class="order-label"><label><input id="counts" type="checkbox" checked /> <span data-i18n="counts">Broj slova i krivih</span></label></span><span class="order-move"><button type="button" class="order-up" data-i18n-aria="order.up" aria-label="Pomeri gore">↑</button><button type="button" class="order-down" data-i18n-aria="order.down" aria-label="Pomeri dole">↓</button></span></li>
-                  <li data-part="slogan"><span class="grip" aria-hidden="true">⠿</span><span class="order-label" data-i18n="order.slogan">Slogan (uvek)</span><span class="order-move"><button type="button" class="order-up" data-i18n-aria="order.up" aria-label="Pomeri gore">↑</button><button type="button" class="order-down" data-i18n-aria="order.down" aria-label="Pomeri dole">↓</button></span></li>
-                </ol>
-              </fieldset>
-              <details class="more" id="moreImage">
-                <summary data-i18n="more.image">Više opcija slike</summary>
-                <fieldset class="checks">
-                  <label><input id="wall" type="checkbox" /> <span data-i18n="wall">Jednačine u pozadini</span></label>
-                  <label><input id="tracesImage" type="checkbox" /> <span data-i18n="traces">Tragovi nastanka</span></label>
-                  <label><input id="liveEqImage" type="checkbox" checked /> <span data-i18n="liveEqImage">Jednačina uživo (GIF, animirani SVG)</span></label>
-                  <label><input id="transparent" type="checkbox" /> <span data-i18n="transparent">Providna pozadina (PNG, SVG)</span></label>
-                  <label><input id="posterGrid" type="checkbox" /> <span data-i18n="posterGrid">XY mreža oko natpisa</span></label>
-                  <label><input id="gridFull" type="checkbox" /> <span data-i18n="gridFull">Koordinatni sistem preko cele slike</span></label>
-                </fieldset>
-                <div class="field moment-field">
-                  <label class="label" for="moment"><span data-i18n="moment">Trenutak ispisa</span> <output id="momentOut"></output></label>
-                  <input id="moment" type="range" min="1" max="1000" step="1" value="1000" />
-                  <div class="moment-buttons">
-                    <button type="button" id="momentStart" data-i18n="moment.start">Početak</button>
-                    <button type="button" id="momentRandom" data-i18n="moment.random">Nasumično</button>
-                    <button type="button" id="momentEnd" data-i18n="moment.end">Kraj</button>
-                    <button type="button" id="momentPlot" data-i18n="moment.plot">Sa grafika</button>
-                  </div>
-                  <span class="field-hint" data-i18n="moment.hint"></span>
-                </div>
-              </details>
-              <p class="hint" id="presetNote"></p>
-            </div>
-            <div id="imagePreview" class="image-preview" data-i18n-aria="preview.aria" aria-label="Pregled kompozicije"></div>
-            <div class="actions image-actions" id="imageActions"></div>
-            <p class="hint" id="gifStatus" aria-live="polite"></p>
-          </div>
-        </details>
-
-        <details class="panel export" id="equations">
-          <summary class="lab-summary">
-            <span class="lab-name" data-i18n="eq.title">Jednačine</span>
-            <span class="lab-sub" data-i18n="eq.sub">Desmos · GeoGebra · LaTeX · TXT · SVG · G-kod: jednačine natpisa za druge programe i mašine</span>
-          </summary>
-          <div class="tabs" role="tablist" data-i18n-aria="tabs.aria" aria-label="Format izvoza">
-            <button type="button" role="tab" data-format="desmos" aria-selected="true">Desmos</button>
-            <button type="button" role="tab" data-format="geogebra" aria-selected="false">GeoGebra</button>
-            <button type="button" role="tab" data-format="latex" aria-selected="false">LaTeX</button>
-            <button type="button" role="tab" data-format="txt" aria-selected="false">TXT</button>
-            <button type="button" role="tab" data-format="svg" aria-selected="false">SVG</button>
-            <button type="button" role="tab" data-format="gcode" aria-selected="false" data-i18n="tab.gcode">G-kod</button>
-          </div>
-          <div class="export-head">
-            <h2 id="exportTitle"></h2>
-            <div class="actions" id="exportActions"></div>
-          </div>
-          <div id="gcodeOpts" class="wave-controls gcode-opts" hidden>
-            <label class="check"><span data-i18n="gcode.profile">Mašina</span>
-              <select id="gcodeProfile">
-                <option value="laser" data-i18n="gcode.laser">Laserski graver (GRBL)</option>
-                <option value="pen" data-i18n="gcode.pen">Ploter / CNC (osa Z)</option>
-              </select>
-            </label>
-            <label class="check"><span data-i18n="gcode.width">Širina</span> <input id="gcodeWidth" type="number" min="10" max="1000" step="1" value="100" /> mm</label>
-            <label class="check"><span data-i18n="gcode.feed">Brzina</span> <input id="gcodeFeed" type="number" min="50" max="20000" step="50" value="1000" /> mm/min</label>
-            <label class="check" id="gcodePowerField"><span data-i18n="gcode.power">Snaga lasera</span> <input id="gcodePower" type="number" min="1" max="100" step="1" value="60" /> %</label>
-            <label class="check" id="gcodeZField" hidden><span data-i18n="gcode.z">Z gore / dole</span> <input id="gcodeZUp" type="number" min="-50" max="50" step="0.5" value="3" /> / <input id="gcodeZDown" type="number" min="-50" max="50" step="0.1" value="0" /> mm</label>
-          </div>
+        <div class="pane export" id="equations" data-for="equations" hidden>
+          <h2 id="exportTitle" class="pane-title"></h2>
           <div id="gcodePreview" class="rel-plot" hidden></div>
           <p class="hint" id="exportHint"></p>
           <ol id="exprList" class="expr-list"></ol>
           <pre id="exportText" class="export-text" hidden></pre>
-        </details>
-
-        <details class="panel lab" id="lab">
-          <summary class="lab-summary">
-            <span class="lab-name" data-i18n="lab.title">Laboratorija</span>
-            <span class="lab-sub" data-i18n="lab.sub">Zvuk · Kvant · Hologram: šta se dešava sa tvojim natpisom, u bilo kom stilu</span>
-          </summary>
-          <div class="tabs" role="tablist" data-i18n-aria="lab.aria" aria-label="Laboratorija">
-            <button type="button" role="tab" data-format="zvuk" aria-selected="true" data-i18n="tab.zvuk">Zvuk</button>
-            <button type="button" role="tab" data-format="kvant" aria-selected="false" data-i18n="tab.kvant">Kvant</button>
-            <button type="button" role="tab" data-format="hologram" aria-selected="false" data-i18n="tab.hologram">Hologram</button>
-            <button type="button" role="tab" data-format="toplota" aria-selected="false" data-i18n="tab.toplota">Toplota</button>
-            <button type="button" role="tab" data-format="evolucija" aria-selected="false" data-i18n="tab.evolucija">Evolucija</button>
-            <button type="button" role="tab" data-format="relativnost" aria-selected="false" data-i18n="tab.relativnost">Relativnost</button>
-            <button type="button" role="tab" data-format="staako" aria-selected="false" data-i18n="tab.staako">Šta ako?</button>
-          </div>
-          <div class="export-head">
-            <h2 id="labTitle"></h2>
-            <div class="actions" id="labActions"></div>
-          </div>
+        </div>
+        <div class="pane lab" id="lab" data-for="lab" hidden>
+          <h2 id="labTitle" class="pane-title"></h2>
           <p class="hint" id="labHint"></p>
           <div id="soundPanel" class="sound-panel" hidden>
             <canvas id="spectroCanvas" class="spectro" role="img" data-i18n-aria="spectro.aria" aria-label="Spektrogram zvuka natpisa"></canvas>
@@ -648,9 +469,196 @@
             <pre id="holoEq" class="export-text wave-eq"></pre>
             <button type="button" class="link-btn" data-sci="hologram" data-i18n="sci.button">Kako ovo radi?</button>
           </div>
-        </details>
+        </div>
+        <div class="pane image-section" id="imageSection" data-for="image" hidden>
+          <p class="hint" id="imageHint"></p>
+          <div id="imagePanel" class="image-panel">
+            <div id="imagePreview" class="image-preview" data-i18n-aria="preview.aria" aria-label="Pregled kompozicije"></div>
+          </div>
+        </div>
+      </div>
 
-      </section>
+      <!-- Below the screen: what can be done with it. -->
+      <div class="panel commands" role="group" data-i18n-aria="cmd.aria" aria-label="Komande">
+        <div class="cmd" data-for="write">
+            <div class="anim-bar" role="group" data-i18n-aria="anim.aria" aria-label="Animacija ispisivanja">
+              <button id="play" type="button" class="primary">▶ Ispiši</button>
+              <button id="restart" type="button" data-i18n-title="anim.restart" data-i18n-aria="anim.restart" title="Ispočetka" aria-label="Ispočetka">⟲</button>
+              <button id="shareLink" type="button" data-i18n="share.button" data-i18n-title="share.title" title="Kopiraj link do ovog natpisa">🔗 Link</button>
+              <output id="shareOut" class="sr-only" aria-live="polite"></output>
+              <label class="anim-speed">
+                <select id="pace" data-i18n-aria="anim.pace.aria" aria-label="Kako se meri brzina ispisa">
+                  <option value="length" data-i18n="anim.pace.length">Trajanje</option>
+                  <option value="equation" data-i18n="anim.pace.equation">Po jednačini</option>
+                  <option value="letter" data-i18n="anim.pace.letter">Po slovu</option>
+                </select>
+                <input id="speed" type="range" min="2" max="30" step="1" value="8" data-i18n-aria="anim.speed.aria" aria-label="Trajanje ispisa u sekundama" />
+                <output id="speedOut" class="anim-t">8 s</output>
+              </label>
+              <label id="epicyclesField" hidden><input id="epicycles" type="checkbox" checked /> <span data-i18n="anim.epicycles">Epicikli</span></label>
+              <label id="liveEqField"><input id="liveEq" type="checkbox" checked /> <span data-i18n="anim.liveEq">Jednačina uživo</span></label>
+              <label id="writingSoundField" data-i18n-title="anim.sound.title" title="Ton prati pero: visina tona je visina pera, levo-desno je x, jačina je brzina"><input id="writingSound" type="checkbox" /> <span data-i18n="anim.sound">Zvuk ispisa</span> <output id="writingSoundOut" class="anim-t"></output></label>
+              <input id="scrub" type="range" min="0" max="1000" step="1" value="1000" data-i18n-aria="anim.scrub" aria-label="Napredak ispisivanja" />
+              <output id="scrubOut" class="anim-t"></output>
+            </div>
+          <div id="stats" class="stats"></div>
+        </div>
+        <div class="cmd actions" id="exportActions" data-for="equations" hidden></div>
+        <div class="cmd actions" id="labActions" data-for="lab" hidden></div>
+        <div class="cmd" data-for="image" hidden>
+          <div class="actions image-actions" id="imageActions"></div>
+          <p class="hint" id="gifStatus" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <!-- Right: the view options of the selected section. -->
+      <aside class="panel options" id="options" data-i18n-aria="opt.aria" aria-label="Opcije prikaza">
+        <button type="button" id="optToggle" class="opt-toggle" aria-expanded="false" aria-controls="optBody"><span aria-hidden="true">⚙</span> <span data-i18n="opt.toggle">Prikaz</span></button>
+        <div class="opt-body" id="optBody">
+        <div class="opt" data-for="write">
+          <div class="panel glyph" id="glyphPanel" hidden>
+            <div class="export-head">
+              <h2 id="glyphTitle"></h2>
+              <button id="closeGlyph" type="button" data-i18n-aria="close" aria-label="Zatvori">×</button>
+            </div>
+            <p class="hint" id="glyphHint"></p>
+            <div id="glyphEq" class="glyph-eq"></div>
+          </div>
+          <label class="check-line"><input id="traces" type="checkbox" /> <span data-i18n="traces">Tragovi nastanka</span></label>
+          <label class="check-line"><input id="enhanced" type="checkbox" checked /> <span data-i18n="enhanced">Pojačan prikaz</span></label>
+          <label data-i18n-title="fit.title" title="Isključi za veća slova, uz pomeranje levo-desno"><input id="fit" type="checkbox" checked /> <span data-i18n="fit">Ceo natpis na ekranu</span></label>
+          <label class="check-line"><input id="sideView" type="checkbox" checked /> <span data-i18n="sideView">Bočni prikaz stila</span></label>
+          <details class="more" id="moreSettings">
+            <summary data-i18n="more.settings">Više podešavanja</summary>
+            <label class="field">
+              <span class="label"><span data-i18n="spacing">Razmak između slova</span> <output id="spacingOut"></output></span>
+              <input id="spacing" type="range" min="0" max="4" step="0.1" value="0.6" />
+            </label>
+
+            <label class="field">
+              <span class="label" data-i18n="decimals">Preciznost koeficijenata</span>
+              <select id="decimals">
+                <option value="1" data-i18n="decimals.1">1 decimala</option>
+                <option value="2" selected data-i18n="decimals.2">2 decimale</option>
+                <option value="3" data-i18n="decimals.3">3 decimale</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span class="label" data-i18n="plotTheme">Tema ispisa</span>
+              <select id="theme">
+                <option value="app" selected data-i18n="theme.app">Kao aplikacija</option>
+                <option value="svetla" data-i18n="theme.svetla">Svetla</option>
+                <option value="tamna" data-i18n="theme.tamna">Tamna</option>
+                <option value="neon" data-i18n="theme.neon">Neon: tamna, sjaj</option>
+                <option value="papir" data-i18n="theme.papir">Papir: sepija</option>
+                <option value="kreda" data-i18n="theme.kreda">Kreda: školska tabla</option>
+                <option value="nacrt" data-i18n="theme.nacrt">Nacrt: plavi papir</option>
+              </select>
+              <span class="field-hint" id="themeHint"></span>
+            </label>
+
+            <label class="field">
+              <span class="label"><span data-i18n="inkWidth">Debljina linije (samo prikaz)</span> <output id="inkWidthOut"></output></span>
+              <input id="inkWidth" type="range" min="0.5" max="5" step="0.25" value="2" />
+            </label>
+
+            <fieldset class="checks">
+              <label><input id="grid" type="checkbox" checked /> <span data-i18n="grid">XY mreža</span></label>
+              <label><input id="axes" type="checkbox" checked /> <span data-i18n="axes">Koordinatne ose</span></label>
+              <label><input id="nodes" type="checkbox" /> <span data-i18n="nodes">Čvorovi (krajevi krivih)</span></label>
+              <label><input id="italic" type="checkbox" /> <span data-i18n="italic">Kurziv</span></label>
+            </fieldset>
+
+            <p class="note" id="fontNote" data-i18n="note.font">Font: Noto Sans (SIL Open Font License).</p>
+            <p class="note" id="geoNote" data-i18n="note.geo" hidden></p>
+          </details>
+          <p class="note" data-i18n="note.principle">Sve linije na grafiku nastaju računanjem jednačina sa desne strane, a ne crtanjem fonta.</p>
+        </div>
+        <div class="opt export" data-for="equations" hidden>
+          <div class="tabs" role="tablist" data-i18n-aria="tabs.aria" aria-label="Format izvoza">
+            <button type="button" role="tab" data-format="desmos" aria-selected="true">Desmos</button>
+            <button type="button" role="tab" data-format="geogebra" aria-selected="false">GeoGebra</button>
+            <button type="button" role="tab" data-format="latex" aria-selected="false">LaTeX</button>
+            <button type="button" role="tab" data-format="txt" aria-selected="false">TXT</button>
+            <button type="button" role="tab" data-format="svg" aria-selected="false">SVG</button>
+            <button type="button" role="tab" data-format="gcode" aria-selected="false" data-i18n="tab.gcode">G-kod</button>
+          </div>
+          <div id="gcodeOpts" class="wave-controls gcode-opts" hidden>
+            <label class="check"><span data-i18n="gcode.profile">Mašina</span>
+              <select id="gcodeProfile">
+                <option value="laser" data-i18n="gcode.laser">Laserski graver (GRBL)</option>
+                <option value="pen" data-i18n="gcode.pen">Ploter / CNC (osa Z)</option>
+              </select>
+            </label>
+            <label class="check"><span data-i18n="gcode.width">Širina</span> <input id="gcodeWidth" type="number" min="10" max="1000" step="1" value="100" /> mm</label>
+            <label class="check"><span data-i18n="gcode.feed">Brzina</span> <input id="gcodeFeed" type="number" min="50" max="20000" step="50" value="1000" /> mm/min</label>
+            <label class="check" id="gcodePowerField"><span data-i18n="gcode.power">Snaga lasera</span> <input id="gcodePower" type="number" min="1" max="100" step="1" value="60" /> %</label>
+            <label class="check" id="gcodeZField" hidden><span data-i18n="gcode.z">Z gore / dole</span> <input id="gcodeZUp" type="number" min="-50" max="50" step="0.5" value="3" /> / <input id="gcodeZDown" type="number" min="-50" max="50" step="0.1" value="0" /> mm</label>
+          </div>
+        </div>
+        <div class="opt lab" data-for="lab" hidden>
+          <div class="tabs" role="tablist" data-i18n-aria="lab.aria" aria-label="Laboratorija">
+            <button type="button" role="tab" data-format="zvuk" aria-selected="true" data-i18n="tab.zvuk">Zvuk</button>
+            <button type="button" role="tab" data-format="kvant" aria-selected="false" data-i18n="tab.kvant">Kvant</button>
+            <button type="button" role="tab" data-format="hologram" aria-selected="false" data-i18n="tab.hologram">Hologram</button>
+            <button type="button" role="tab" data-format="toplota" aria-selected="false" data-i18n="tab.toplota">Toplota</button>
+            <button type="button" role="tab" data-format="evolucija" aria-selected="false" data-i18n="tab.evolucija">Evolucija</button>
+            <button type="button" role="tab" data-format="relativnost" aria-selected="false" data-i18n="tab.relativnost">Relativnost</button>
+            <button type="button" role="tab" data-format="staako" aria-selected="false" data-i18n="tab.staako">Šta ako?</button>
+          </div>
+        </div>
+        <div class="opt" data-for="image" hidden>
+          <div class="image-options">
+            <label class="field">
+              <span class="label" data-i18n="preset">Format</span>
+              <select id="preset">
+                <option value="facebook" selected data-i18n="preset.facebook">Facebook naslovna</option>
+                <option value="linkedin" data-i18n="preset.linkedin">LinkedIn naslovna</option>
+                <option value="instagram" data-i18n="preset.instagram">Instagram objava</option>
+                <option value="majica" data-i18n="preset.majica">Majica (štampa)</option>
+                <option value="solja" data-i18n="preset.solja">Šolja (štampa)</option>
+                <option value="natpis" data-i18n="preset.natpis">Samo natpis</option>
+              </select>
+            </label>
+            <fieldset class="order-field">
+              <legend class="label" data-i18n="imageParts">Šta je na slici</legend>
+              <span class="field-hint" data-i18n="order.hint">Prevuci ⠿ (ili ↑ ↓) da promeniš redosled na slici, odozgo nadole.</span>
+              <ol id="imageOrder" class="order-list">
+                <li data-part="inscription"><span class="grip" aria-hidden="true">⠿</span><span class="order-label" data-i18n="order.inscription">Ispis (natpis)</span><span class="order-move"><button type="button" class="order-up" data-i18n-aria="order.up" aria-label="Pomeri gore">↑</button><button type="button" class="order-down" data-i18n-aria="order.down" aria-label="Pomeri dole">↓</button></span></li>
+                <li data-part="style"><span class="grip" aria-hidden="true">⠿</span><span class="order-label"><label><input id="styleName" type="checkbox" /> <span data-i18n="styleName">Naziv stila</span></label> <label><input id="styleParams" type="checkbox" /> <span data-i18n="styleParams">Parametri stila</span></label></span><span class="order-move"><button type="button" class="order-up" data-i18n-aria="order.up" aria-label="Pomeri gore">↑</button><button type="button" class="order-down" data-i18n-aria="order.down" aria-label="Pomeri dole">↓</button></span></li>
+                <li data-part="formula"><span class="grip" aria-hidden="true">⠿</span><span class="order-label"><label><input id="caption" type="checkbox" checked /> <span data-i18n="caption">Jednačina stila</span></label></span><span class="order-move"><button type="button" class="order-up" data-i18n-aria="order.up" aria-label="Pomeri gore">↑</button><button type="button" class="order-down" data-i18n-aria="order.down" aria-label="Pomeri dole">↓</button></span></li>
+                <li data-part="counts"><span class="grip" aria-hidden="true">⠿</span><span class="order-label"><label><input id="counts" type="checkbox" checked /> <span data-i18n="counts">Broj slova i krivih</span></label></span><span class="order-move"><button type="button" class="order-up" data-i18n-aria="order.up" aria-label="Pomeri gore">↑</button><button type="button" class="order-down" data-i18n-aria="order.down" aria-label="Pomeri dole">↓</button></span></li>
+                <li data-part="slogan"><span class="grip" aria-hidden="true">⠿</span><span class="order-label" data-i18n="order.slogan">Slogan (uvek)</span><span class="order-move"><button type="button" class="order-up" data-i18n-aria="order.up" aria-label="Pomeri gore">↑</button><button type="button" class="order-down" data-i18n-aria="order.down" aria-label="Pomeri dole">↓</button></span></li>
+              </ol>
+            </fieldset>
+            <details class="more" id="moreImage">
+              <summary data-i18n="more.image">Više opcija slike</summary>
+              <fieldset class="checks">
+                <label><input id="wall" type="checkbox" /> <span data-i18n="wall">Jednačine u pozadini</span></label>
+                <label><input id="tracesImage" type="checkbox" /> <span data-i18n="traces">Tragovi nastanka</span></label>
+                <label><input id="liveEqImage" type="checkbox" checked /> <span data-i18n="liveEqImage">Jednačina uživo (GIF, animirani SVG)</span></label>
+                <label><input id="transparent" type="checkbox" /> <span data-i18n="transparent">Providna pozadina (PNG, SVG)</span></label>
+                <label><input id="posterGrid" type="checkbox" /> <span data-i18n="posterGrid">XY mreža oko natpisa</span></label>
+                <label><input id="gridFull" type="checkbox" /> <span data-i18n="gridFull">Koordinatni sistem preko cele slike</span></label>
+              </fieldset>
+              <div class="field moment-field">
+                <label class="label" for="moment"><span data-i18n="moment">Trenutak ispisa</span> <output id="momentOut"></output></label>
+                <input id="moment" type="range" min="1" max="1000" step="1" value="1000" />
+                <div class="moment-buttons">
+                  <button type="button" id="momentStart" data-i18n="moment.start">Početak</button>
+                  <button type="button" id="momentRandom" data-i18n="moment.random">Nasumično</button>
+                  <button type="button" id="momentEnd" data-i18n="moment.end">Kraj</button>
+                  <button type="button" id="momentPlot" data-i18n="moment.plot">Sa grafika</button>
+                </div>
+                <span class="field-hint" data-i18n="moment.hint"></span>
+              </div>
+            </details>
+            <p class="hint" id="presetNote"></p>
+          </div>
+        </div>
+        </div>
+      </aside>
     </main>
 
     <footer class="foot"><span class="foot-name">JNX MathGlyph</span> · <span id="brandFamily">A JJNN Lab project · powered by 2J2N Engine</span> · <span id="brandHolder">© JJNN Lab</span></footer>
