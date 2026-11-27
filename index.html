@@ -6,8 +6,8 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-Duxl_1vc.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CiP1wifI.css">
+    <script type="module" crossorigin src="./assets/index-BLyPFVya.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DMfWw3bR.css">
   </head>
   <!--
     Texts: every element with data-i18n="key" is filled from src/i18n.ts (sr, sr-Cyrl, en);
@@ -61,6 +61,7 @@
       <details class="sci" data-style="blueprint"><summary data-i18n="sci.blueprint.title"></summary><div class="sci-body" data-i18n="sci.blueprint" data-i18n-html></div></details>
       <details class="sci" data-style="calligraphy"><summary data-i18n="sci.calligraphy.title"></summary><div class="sci-body" data-i18n="sci.calligraphy" data-i18n-html></div></details>
       <details class="sci" data-style="astronomy"><summary data-i18n="sci.astronomy.title"></summary><div class="sci-body" data-i18n="sci.astronomy" data-i18n-html></div></details>
+      <details class="sci" data-style="bits"><summary data-i18n="sci.bits.title"></summary><div class="sci-body" data-i18n="sci.bits" data-i18n-html></div></details>
       <details class="sci" data-style="geo"><summary data-i18n="sci.geo.title"></summary><div class="sci-body" data-i18n="sci.geo" data-i18n-html></div></details>
       <details class="sci" data-style="tesla"><summary data-i18n="sci.tesla.title"></summary><div class="sci-body" data-i18n="sci.tesla" data-i18n-html></div></details>
       <details class="sci" data-style="fluid"><summary data-i18n="sci.fluid.title"></summary><div class="sci-body" data-i18n="sci.fluid" data-i18n-html></div></details>
@@ -130,6 +131,7 @@
               <option value="fluid" data-i18n="style.fluid">Mehanika fluida: vrtlog u vodi</option>
               <option value="tesla" data-i18n="style.tesla">Tesla: obrtno magnetno polje</option>
               <option value="geo" data-i18n="style.geo">GPS: rute preko Zemlje</option>
+              <option value="bits" data-i18n="style.bits">IT: bitmapa (pikseli i bajtovi)</option>
             </optgroup>
             <optgroup label="Tehnika i umetnost" data-i18n-label="styleGroup.craft">
               <option value="blueprint" data-i18n="style.blueprint">Blueprint: slova + konstrukcija</option>
@@ -188,6 +190,19 @@
             </select>
           </label>
           <span class="field-hint" data-i18n="osc.hint"></span>
+        </div>
+
+        <div class="field" id="bitsField" hidden>
+          <label class="field">
+            <span class="label" data-i18n="bits.rows">Piksela po visini</span>
+            <select id="bitsRows">
+              <option value="8" data-i18n="bits.r8">8 (stari terminal)</option>
+              <option value="12" selected>12</option>
+              <option value="16">16</option>
+            </select>
+          </label>
+          <button type="button" id="bitsC" class="link-btn" data-i18n="bits.c">Preuzmi kao C niz (Arduino, LED matrica)</button>
+          <span class="field-hint" data-i18n="bits.hint"></span>
         </div>
 
         <div class="field" id="geoField" hidden>
@@ -345,6 +360,10 @@
               <output id="stormCount" class="anim-t"></output>
             </div>
             <figcaption class="hint" id="stormSideNote"></figcaption>
+          </figure>
+          <figure id="bitsSide" class="lens-side" hidden>
+            <div id="bitsSidePlot"></div>
+            <figcaption class="hint" id="bitsSideNote"></figcaption>
           </figure>
           <figure id="geoSide" class="lens-side" hidden>
             <div id="geoSidePlot"></div>
