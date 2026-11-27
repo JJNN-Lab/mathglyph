@@ -6,7 +6,7 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-BuSWo9QC.js"></script>
+    <script type="module" crossorigin src="./assets/index-CXmuxIuF.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-CiP1wifI.css">
   </head>
   <!--
@@ -61,6 +61,7 @@
       <details class="sci" data-style="blueprint"><summary data-i18n="sci.blueprint.title"></summary><div class="sci-body" data-i18n="sci.blueprint" data-i18n-html></div></details>
       <details class="sci" data-style="calligraphy"><summary data-i18n="sci.calligraphy.title"></summary><div class="sci-body" data-i18n="sci.calligraphy" data-i18n-html></div></details>
       <details class="sci" data-style="astronomy"><summary data-i18n="sci.astronomy.title"></summary><div class="sci-body" data-i18n="sci.astronomy" data-i18n-html></div></details>
+      <details class="sci" data-style="tesla"><summary data-i18n="sci.tesla.title"></summary><div class="sci-body" data-i18n="sci.tesla" data-i18n-html></div></details>
       <details class="sci" data-style="fluid"><summary data-i18n="sci.fluid.title"></summary><div class="sci-body" data-i18n="sci.fluid" data-i18n-html></div></details>
       <details class="sci" data-style="optics"><summary data-i18n="sci.optics.title"></summary><div class="sci-body" data-i18n="sci.optics" data-i18n-html></div></details>
       <details class="sci" data-style="oscilloscope"><summary data-i18n="sci.oscilloscope.title"></summary><div class="sci-body" data-i18n="sci.oscilloscope" data-i18n-html></div></details>
@@ -126,6 +127,7 @@
               <option value="oscilloscope" data-i18n="style.oscilloscope">Akustika: osciloskop (dva tona)</option>
               <option value="optics" data-i18n="style.optics">Optika: anamorfoza (ogledalo limenka)</option>
               <option value="fluid" data-i18n="style.fluid">Mehanika fluida: vrtlog u vodi</option>
+              <option value="tesla" data-i18n="style.tesla">Tesla: obrtno magnetno polje</option>
             </optgroup>
             <optgroup label="Tehnika i umetnost" data-i18n-label="styleGroup.craft">
               <option value="blueprint" data-i18n="style.blueprint">Blueprint: slova + konstrukcija</option>
@@ -184,6 +186,17 @@
             </select>
           </label>
           <span class="field-hint" data-i18n="osc.hint"></span>
+        </div>
+
+        <div class="field" id="teslaField" hidden>
+          <label class="field">
+            <span class="label" data-i18n="tesla.freq">Frekvencija mreže</span>
+            <select id="teslaFreq">
+              <option value="60" selected data-i18n="tesla.f60">60 Hz (Tesla i Westinghouse)</option>
+              <option value="50" data-i18n="tesla.f50">50 Hz (Evropa)</option>
+            </select>
+          </label>
+          <span class="field-hint" data-i18n="tesla.hint"></span>
         </div>
 
         <div class="field" id="fluidField" hidden>
@@ -309,6 +322,10 @@
               <output id="stormCount" class="anim-t"></output>
             </div>
             <figcaption class="hint" id="stormSideNote"></figcaption>
+          </figure>
+          <figure id="teslaSide" class="lens-side" hidden>
+            <div id="teslaSidePlot"></div>
+            <figcaption class="hint" id="teslaSideNote"></figcaption>
           </figure>
           <figure id="fluidSide" class="lens-side" hidden>
             <div id="fluidSidePlot"></div>
