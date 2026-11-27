@@ -6,7 +6,7 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-BkaDcasI.js"></script>
+    <script type="module" crossorigin src="./assets/index-upnYGH4q.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-DmEEmitM.css">
   </head>
   <!--
@@ -417,6 +417,7 @@
             <button type="button" role="tab" data-format="toplota" aria-selected="false" data-i18n="tab.toplota">Toplota</button>
             <button type="button" role="tab" data-format="evolucija" aria-selected="false" data-i18n="tab.evolucija">Evolucija</button>
             <button type="button" role="tab" data-format="relativnost" aria-selected="false" data-i18n="tab.relativnost">Relativnost</button>
+            <button type="button" role="tab" data-format="staako" aria-selected="false" data-i18n="tab.staako">Šta ako?</button>
           </div>
           <div class="export-head">
             <h2 id="labTitle"></h2>
@@ -508,6 +509,27 @@
             <p class="hint" id="relNote"></p>
             <pre id="relEq" class="export-text wave-eq"></pre>
             <button type="button" class="link-btn" data-sci="relativity" data-i18n="sci.button">Kako ovo radi?</button>
+          </div>
+          <div id="whatIfPanel" class="wave-panel" hidden>
+            <div id="whatIfPlot" class="rel-plot"></div>
+            <div class="wave-controls">
+              <label class="wave-time">
+                <span class="label" data-i18n="whatif.n">Gravitacija opada kao 1/rⁿ</span>
+                <input type="range" id="whatIfN" min="-1" max="3.5" step="0.05" value="2.5" />
+              </label>
+              <output id="whatIfNOut" for="whatIfN"></output>
+              <button type="button" id="whatIfNewton" data-i18n="whatif.newton">Njutn (n = 2)</button>
+            </div>
+            <div class="wave-controls">
+              <label class="wave-time">
+                <span class="label" data-i18n="whatif.time">Koliko dugo lete</span>
+                <input type="range" id="whatIfTime" min="1" max="6" step="0.5" value="1" />
+              </label>
+              <output id="whatIfTimeOut" for="whatIfTime"></output>
+            </div>
+            <p class="hint" id="whatIfNote"></p>
+            <pre id="whatIfEq" class="export-text wave-eq"></pre>
+            <button type="button" class="link-btn" data-sci="astronomy" data-i18n="sci.button">Kako ovo radi?</button>
           </div>
           <div id="evoPanel" class="wave-panel" hidden>
             <div id="evoPlot" class="evo-plot"></div>
