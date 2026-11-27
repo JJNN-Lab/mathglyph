@@ -6,7 +6,7 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-BLyPFVya.js"></script>
+    <script type="module" crossorigin src="./assets/index-i-mXh6Q4.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-DMfWw3bR.css">
   </head>
   <!--
@@ -61,6 +61,7 @@
       <details class="sci" data-style="blueprint"><summary data-i18n="sci.blueprint.title"></summary><div class="sci-body" data-i18n="sci.blueprint" data-i18n-html></div></details>
       <details class="sci" data-style="calligraphy"><summary data-i18n="sci.calligraphy.title"></summary><div class="sci-body" data-i18n="sci.calligraphy" data-i18n-html></div></details>
       <details class="sci" data-style="astronomy"><summary data-i18n="sci.astronomy.title"></summary><div class="sci-body" data-i18n="sci.astronomy" data-i18n-html></div></details>
+      <details class="sci" data-style="neural"><summary data-i18n="sci.neural.title"></summary><div class="sci-body" data-i18n="sci.neural" data-i18n-html></div></details>
       <details class="sci" data-style="bits"><summary data-i18n="sci.bits.title"></summary><div class="sci-body" data-i18n="sci.bits" data-i18n-html></div></details>
       <details class="sci" data-style="geo"><summary data-i18n="sci.geo.title"></summary><div class="sci-body" data-i18n="sci.geo" data-i18n-html></div></details>
       <details class="sci" data-style="tesla"><summary data-i18n="sci.tesla.title"></summary><div class="sci-body" data-i18n="sci.tesla" data-i18n-html></div></details>
@@ -132,6 +133,7 @@
               <option value="tesla" data-i18n="style.tesla">Tesla: obrtno magnetno polje</option>
               <option value="geo" data-i18n="style.geo">GPS: rute preko Zemlje</option>
               <option value="bits" data-i18n="style.bits">IT: bitmapa (pikseli i bajtovi)</option>
+              <option value="neural" data-i18n="style.neural">Neuronska mreža: tanh neuroni</option>
             </optgroup>
             <optgroup label="Tehnika i umetnost" data-i18n-label="styleGroup.craft">
               <option value="blueprint" data-i18n="style.blueprint">Blueprint: slova + konstrukcija</option>
@@ -190,6 +192,14 @@
             </select>
           </label>
           <span class="field-hint" data-i18n="osc.hint"></span>
+        </div>
+
+        <div class="field" id="neuralField" hidden>
+          <label class="field">
+            <span class="label"><span data-i18n="neural.neurons">Neurona po konturi N</span> <output id="neuralNeuronsOut"></output></span>
+            <input id="neuralNeurons" type="range" min="4" max="64" step="1" value="16" />
+          </label>
+          <span class="field-hint" data-i18n="neural.hint"></span>
         </div>
 
         <div class="field" id="bitsField" hidden>
@@ -360,6 +370,10 @@
               <output id="stormCount" class="anim-t"></output>
             </div>
             <figcaption class="hint" id="stormSideNote"></figcaption>
+          </figure>
+          <figure id="neuralSide" class="lens-side" hidden>
+            <div id="neuralSidePlot"></div>
+            <figcaption class="hint" id="neuralSideNote"></figcaption>
           </figure>
           <figure id="bitsSide" class="lens-side" hidden>
             <div id="bitsSidePlot"></div>
