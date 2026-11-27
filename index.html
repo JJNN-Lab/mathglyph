@@ -6,8 +6,8 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-DXtfl-DM.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BF5c1l6O.css">
+    <script type="module" crossorigin src="./assets/index-sdYg5NGs.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DdCBwAKz.css">
   </head>
   <!--
     Texts: every element with data-i18n="key" is filled from src/i18n.ts (sr, sr-Cyrl, en);
@@ -416,6 +416,7 @@
         <div class="pane export" id="equations" data-for="equations" hidden>
           <h2 id="exportTitle" class="pane-title"></h2>
           <div id="gcodePreview" class="rel-plot" hidden></div>
+          <div id="fontPreview" class="font-preview" hidden></div>
           <p class="hint" id="exportHint"></p>
           <ol id="exprList" class="expr-list"></ol>
           <pre id="exportText" class="export-text" hidden></pre>
@@ -808,7 +809,15 @@
             <button type="button" role="tab" data-format="latex" aria-selected="false">LaTeX</button>
             <button type="button" role="tab" data-format="txt" aria-selected="false">TXT</button>
             <button type="button" role="tab" data-format="svg" aria-selected="false">SVG</button>
+            <button type="button" role="tab" data-format="font" aria-selected="false" data-i18n="tab.font">Font</button>
             <button type="button" role="tab" data-format="gcode" aria-selected="false" data-i18n="tab.gcode">G-kod</button>
+          </div>
+          <div id="fontOpts" class="wave-controls gcode-opts" hidden>
+            <span class="label" data-i18n="font.sets">Znakovi</span>
+            <label class="check"><input type="checkbox" id="fontLatin" checked /> <span data-i18n="font.latin">Latinica (sa č, ć, đ, š, ž)</span></label>
+            <label class="check"><input type="checkbox" id="fontCyrillic" checked /> <span data-i18n="font.cyrillic">Ćirilica</span></label>
+            <label class="check"><input type="checkbox" id="fontDigits" checked /> <span data-i18n="font.digits">Cifre i znaci</span></label>
+            <label class="check"><input type="checkbox" id="fontText" /> <span data-i18n="font.text">Samo slova iz natpisa</span></label>
           </div>
           <div id="gcodeOpts" class="wave-controls gcode-opts" hidden>
             <label class="check"><span data-i18n="gcode.profile">Mašina</span>
