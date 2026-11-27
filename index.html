@@ -6,7 +6,7 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-Dnh7DKoh.js"></script>
+    <script type="module" crossorigin src="./assets/index-BuSWo9QC.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-CiP1wifI.css">
   </head>
   <!--
@@ -61,6 +61,7 @@
       <details class="sci" data-style="blueprint"><summary data-i18n="sci.blueprint.title"></summary><div class="sci-body" data-i18n="sci.blueprint" data-i18n-html></div></details>
       <details class="sci" data-style="calligraphy"><summary data-i18n="sci.calligraphy.title"></summary><div class="sci-body" data-i18n="sci.calligraphy" data-i18n-html></div></details>
       <details class="sci" data-style="astronomy"><summary data-i18n="sci.astronomy.title"></summary><div class="sci-body" data-i18n="sci.astronomy" data-i18n-html></div></details>
+      <details class="sci" data-style="fluid"><summary data-i18n="sci.fluid.title"></summary><div class="sci-body" data-i18n="sci.fluid" data-i18n-html></div></details>
       <details class="sci" data-style="optics"><summary data-i18n="sci.optics.title"></summary><div class="sci-body" data-i18n="sci.optics" data-i18n-html></div></details>
       <details class="sci" data-style="oscilloscope"><summary data-i18n="sci.oscilloscope.title"></summary><div class="sci-body" data-i18n="sci.oscilloscope" data-i18n-html></div></details>
       <details class="sci" data-style="meteo"><summary data-i18n="sci.meteo.title"></summary><div class="sci-body" data-i18n="sci.meteo" data-i18n-html></div></details>
@@ -124,6 +125,7 @@
               <option value="meteo" data-i18n="style.meteo">Meteorologija: sinoptička karta</option>
               <option value="oscilloscope" data-i18n="style.oscilloscope">Akustika: osciloskop (dva tona)</option>
               <option value="optics" data-i18n="style.optics">Optika: anamorfoza (ogledalo limenka)</option>
+              <option value="fluid" data-i18n="style.fluid">Mehanika fluida: vrtlog u vodi</option>
             </optgroup>
             <optgroup label="Tehnika i umetnost" data-i18n-label="styleGroup.craft">
               <option value="blueprint" data-i18n="style.blueprint">Blueprint: slova + konstrukcija</option>
@@ -182,6 +184,22 @@
             </select>
           </label>
           <span class="field-hint" data-i18n="osc.hint"></span>
+        </div>
+
+        <div class="field" id="fluidField" hidden>
+          <label class="field">
+            <span class="label"><span data-i18n="fluid.time">Vreme T</span> <output id="fluidTimeOut"></output></span>
+            <input id="fluidTime" type="range" min="0" max="60" step="0.5" value="3" />
+          </label>
+          <label class="field">
+            <span class="label" data-i18n="fluid.gamma">Jačina vrtloga Γ</span>
+            <select id="fluidGamma">
+              <option value="400" data-i18n="fluid.gamma.slow">4 cm²/s (lagano mešanje)</option>
+              <option value="1000" selected data-i18n="fluid.gamma.std">10 cm²/s (kašičica u čaši)</option>
+              <option value="2500" data-i18n="fluid.gamma.fast">25 cm²/s (jako mešanje)</option>
+            </select>
+          </label>
+          <span class="field-hint" data-i18n="fluid.hint"></span>
         </div>
 
         <div class="field" id="opticsField" hidden>
@@ -291,6 +309,10 @@
               <output id="stormCount" class="anim-t"></output>
             </div>
             <figcaption class="hint" id="stormSideNote"></figcaption>
+          </figure>
+          <figure id="fluidSide" class="lens-side" hidden>
+            <div id="fluidSidePlot"></div>
+            <figcaption class="hint" id="fluidSideNote"></figcaption>
           </figure>
           <figure id="opticsSide" class="lens-side" hidden>
             <div id="opticsSidePlot"></div>
