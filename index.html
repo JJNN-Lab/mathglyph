@@ -6,7 +6,7 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-CsHqPAiV.js"></script>
+    <script type="module" crossorigin src="./assets/index-D7X3_RhP.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-CiP1wifI.css">
   </head>
   <!--
@@ -61,6 +61,7 @@
       <details class="sci" data-style="blueprint"><summary data-i18n="sci.blueprint.title"></summary><div class="sci-body" data-i18n="sci.blueprint" data-i18n-html></div></details>
       <details class="sci" data-style="calligraphy"><summary data-i18n="sci.calligraphy.title"></summary><div class="sci-body" data-i18n="sci.calligraphy" data-i18n-html></div></details>
       <details class="sci" data-style="astronomy"><summary data-i18n="sci.astronomy.title"></summary><div class="sci-body" data-i18n="sci.astronomy" data-i18n-html></div></details>
+      <details class="sci" data-style="oscilloscope"><summary data-i18n="sci.oscilloscope.title"></summary><div class="sci-body" data-i18n="sci.oscilloscope" data-i18n-html></div></details>
       <details class="sci" data-style="meteo"><summary data-i18n="sci.meteo.title"></summary><div class="sci-body" data-i18n="sci.meteo" data-i18n-html></div></details>
       <details class="sci" data-style="thermo"><summary data-i18n="sci.thermo.title"></summary><div class="sci-body" data-i18n="sci.thermo" data-i18n-html></div></details>
       <details class="sci" data-style="robot"><summary data-i18n="sci.robot.title"></summary><div class="sci-body" data-i18n="sci.robot" data-i18n-html></div></details>
@@ -120,6 +121,7 @@
               <option value="blackhole" data-i18n="style.blackhole">Crna rupa: gravitaciono sočivo</option>
               <option value="thermo" data-i18n="style.thermo">Termodinamika: P–V dijagram</option>
               <option value="meteo" data-i18n="style.meteo">Meteorologija: sinoptička karta</option>
+              <option value="oscilloscope" data-i18n="style.oscilloscope">Akustika: osciloskop (dva tona)</option>
             </optgroup>
             <optgroup label="Tehnika i umetnost" data-i18n-label="styleGroup.craft">
               <option value="blueprint" data-i18n="style.blueprint">Blueprint: slova + konstrukcija</option>
@@ -165,6 +167,19 @@
             <input id="meteoLat" type="range" min="-80" max="80" step="0.1" value="44.8" />
           </label>
           <span class="field-hint" data-i18n="meteo.hint"></span>
+        </div>
+
+        <div class="field" id="oscField" hidden>
+          <label class="field">
+            <span class="label" data-i18n="osc.freq">Frekvencija tona</span>
+            <select id="oscFreq">
+              <option value="110">110 Hz</option>
+              <option value="220">220 Hz</option>
+              <option value="440" selected>440 Hz</option>
+              <option value="880">880 Hz</option>
+            </select>
+          </label>
+          <span class="field-hint" data-i18n="osc.hint"></span>
         </div>
 
         <div class="field" id="thermoField" hidden>
@@ -257,6 +272,10 @@
               <output id="stormCount" class="anim-t"></output>
             </div>
             <figcaption class="hint" id="stormSideNote"></figcaption>
+          </figure>
+          <figure id="oscSide" class="lens-side" hidden>
+            <div id="oscSidePlot"></div>
+            <figcaption class="hint" id="oscSideNote"></figcaption>
           </figure>
           <figure id="fourierSide" class="lens-side" hidden>
             <div id="fourierSidePlot"></div>
