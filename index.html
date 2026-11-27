@@ -6,8 +6,8 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-i-mXh6Q4.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DMfWw3bR.css">
+    <script type="module" crossorigin src="./assets/index-DXtfl-DM.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BF5c1l6O.css">
   </head>
   <!--
     Texts: every element with data-i18n="key" is filled from src/i18n.ts (sr, sr-Cyrl, en);
@@ -78,6 +78,7 @@
       <details class="sci" data-style="evolution"><summary data-i18n="sci.evolution.title"></summary><div class="sci-body" data-i18n="sci.evolution" data-i18n-html></div></details>
       <details class="sci" data-style="heat"><summary data-i18n="sci.heat.title"></summary><div class="sci-body" data-i18n="sci.heat" data-i18n-html></div></details>
       <details class="sci" data-style="quantum"><summary data-i18n="sci.quantum.title"></summary><div class="sci-body" data-i18n="sci.quantum" data-i18n-html></div></details>
+      <details class="sci" data-style="three"><summary data-i18n="sci.three.title"></summary><div class="sci-body" data-i18n="sci.three" data-i18n-html></div></details>
       <details class="sci" data-style="chladni"><summary data-i18n="sci.chladni.title"></summary><div class="sci-body" data-i18n="sci.chladni" data-i18n-html></div></details>
       <details class="sci" data-style="hologram"><summary data-i18n="sci.hologram.title"></summary><div class="sci-body" data-i18n="sci.hologram" data-i18n-html></div></details>
     </dialog>
@@ -558,6 +559,22 @@
             <pre id="relEq" class="export-text wave-eq"></pre>
             <button type="button" class="link-btn" data-sci="relativity" data-i18n="sci.button">Kako ovo radi?</button>
           </div>
+          <div id="threePanel" class="wave-panel three-panel" hidden>
+            <div id="threePlot" class="three-plot" tabindex="0" role="img" data-i18n-aria="three.aria" aria-label="Natpis u prostoru; prevuci ili strelicama okreni"></div>
+            <div class="wave-controls">
+              <label class="check"><span data-i18n="three.mode">Prikaz</span>
+                <select id="threeMode">
+                  <option value="time" selected data-i18n="three.time">Vreme kao visina</option>
+                  <option value="relief" data-i18n="three.relief">Reljef (žica na ploči)</option>
+                </select>
+              </label>
+              <button type="button" id="threeTop" data-i18n="three.top">Odozgo</button>
+              <button type="button" id="threeTilt" data-i18n="three.tilt">Iskosa</button>
+              <label class="check"><span data-i18n="three.width">Širina za štampu</span> <input id="threeWidth" type="number" min="30" max="300" step="5" value="120" /> mm</label>
+            </div>
+            <p class="hint" id="threeNote"></p>
+            <button type="button" class="link-btn" data-sci="three" data-i18n="sci.button">Kako ovo radi?</button>
+          </div>
           <div id="whatIfPanel" class="wave-panel" hidden>
             <div class="wave-controls">
               <label class="check"><span data-i18n="whatif.exp">Eksperiment</span>
@@ -815,6 +832,7 @@
             <button type="button" role="tab" data-format="toplota" aria-selected="false" data-i18n="tab.toplota">Toplota</button>
             <button type="button" role="tab" data-format="evolucija" aria-selected="false" data-i18n="tab.evolucija">Evolucija</button>
             <button type="button" role="tab" data-format="relativnost" aria-selected="false" data-i18n="tab.relativnost">Relativnost</button>
+            <button type="button" role="tab" data-format="trid" aria-selected="false" data-i18n="tab.trid">3D</button>
             <button type="button" role="tab" data-format="staako" aria-selected="false" data-i18n="tab.staako">Šta ako?</button>
           </div>
         </div>
