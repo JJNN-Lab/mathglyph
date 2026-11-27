@@ -6,8 +6,8 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-6QlWCa9g.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-C2idBnY7.css">
+    <script type="module" crossorigin src="./assets/index-CsHqPAiV.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CiP1wifI.css">
   </head>
   <!--
     Texts: every element with data-i18n="key" is filled from src/i18n.ts (sr, sr-Cyrl, en);
@@ -71,6 +71,7 @@
       <details class="sci" data-style="evolution"><summary data-i18n="sci.evolution.title"></summary><div class="sci-body" data-i18n="sci.evolution" data-i18n-html></div></details>
       <details class="sci" data-style="heat"><summary data-i18n="sci.heat.title"></summary><div class="sci-body" data-i18n="sci.heat" data-i18n-html></div></details>
       <details class="sci" data-style="quantum"><summary data-i18n="sci.quantum.title"></summary><div class="sci-body" data-i18n="sci.quantum" data-i18n-html></div></details>
+      <details class="sci" data-style="chladni"><summary data-i18n="sci.chladni.title"></summary><div class="sci-body" data-i18n="sci.chladni" data-i18n-html></div></details>
       <details class="sci" data-style="hologram"><summary data-i18n="sci.hologram.title"></summary><div class="sci-body" data-i18n="sci.hologram" data-i18n-html></div></details>
     </dialog>
 
@@ -322,6 +323,56 @@
                 </div>
               </div>
             </section>
+          </div>
+          <div id="chladniPanel" class="wave-panel chladni-panel" hidden>
+            <canvas id="chladniCanvas" class="chladni-canvas" width="480" height="480" role="img" data-i18n-aria="chladni.aria" aria-label="Kladnijeva ploča: pesak na čeličnoj ploči koju pokreće zvuk natpisa"></canvas>
+            <div class="chladni-side">
+              <div class="wave-controls">
+                <button type="button" id="chladniPlay" class="primary" data-i18n="chladni.play">▶ Pusti zvuk na ploču</button>
+                <button type="button" id="chladniSand" data-i18n="chladni.sand">Nov pesak</button>
+              </div>
+              <div class="wave-controls">
+                <label class="wave-time">
+                  <span class="label" data-i18n="quantum.time">Vreme</span>
+                  <input type="range" id="chladniTime" min="0" max="1000" step="1" value="0" />
+                </label>
+                <output id="chladniTimeOut" for="chladniTime"></output>
+              </div>
+              <div class="wave-controls">
+                <label class="wave-time">
+                  <span class="label" data-i18n="chladni.thick">Debljina ploče</span>
+                  <input type="range" id="chladniThick" min="0.5" max="3" step="0.1" value="1" />
+                </label>
+                <output id="chladniThickOut" for="chladniThick"></output>
+              </div>
+              <div class="wave-controls">
+                <label class="wave-time">
+                  <span class="label" data-i18n="chladni.volume">Jačina zvuka</span>
+                  <input type="range" id="chladniVolume" min="1" max="10" step="0.5" value="4" />
+                </label>
+                <output id="chladniVolumeOut" for="chladniVolume"></output>
+              </div>
+              <div class="wave-controls">
+                <label class="check"><span data-i18n="chladni.source">Zvuk</span>
+                  <select id="chladniSource">
+                    <option value="pen" data-i18n="chladni.pen">ton pera (zvuk ispisa)</option>
+                    <option value="spectro" data-i18n="chladni.spectro">spektrogram (mnogo tonova odjednom)</option>
+                  </select>
+                </label>
+                <label class="check"><span data-i18n="chladni.drive">Pobuda</span>
+                  <select id="chladniDrive">
+                    <option value="centre" data-i18n="chladni.centre">u sredini</option>
+                    <option value="side" data-i18n="chladni.side">bliže ivici</option>
+                    <option value="corner" data-i18n="chladni.corner">blizu ugla</option>
+                  </select>
+                </label>
+                <label class="check"><input type="checkbox" id="chladniWhole" /> <span data-i18n="chladni.whole">Ceo zvuk odjednom</span></label>
+                <label class="check"><input type="checkbox" id="chladniShow" /> <span data-i18n="chladni.show">Prikaži kretanje ploče</span></label>
+              </div>
+              <p class="hint" id="chladniNote" aria-live="polite"></p>
+              <pre id="chladniEq" class="export-text wave-eq"></pre>
+              <button type="button" class="link-btn" data-sci="chladni" data-i18n="sci.button">Kako ovo radi?</button>
+            </div>
           </div>
           <div id="quantumPanel" class="wave-panel" hidden>
             <canvas id="quantumCanvas" class="wave-canvas" role="img" data-i18n-aria="quantum.aria" aria-label="Gustina verovatnoće elektrona u kutiji"></canvas>
@@ -617,6 +668,7 @@
         <div class="opt lab" data-for="lab" hidden>
           <div class="tabs" role="tablist" data-i18n-aria="lab.aria" aria-label="Laboratorija">
             <button type="button" role="tab" data-format="zvuk" aria-selected="true" data-i18n="tab.zvuk">Zvuk</button>
+            <button type="button" role="tab" data-format="akustika" aria-selected="false" data-i18n="tab.akustika">Akustika</button>
             <button type="button" role="tab" data-format="kvant" aria-selected="false" data-i18n="tab.kvant">Kvant</button>
             <button type="button" role="tab" data-format="hologram" aria-selected="false" data-i18n="tab.hologram">Hologram</button>
             <button type="button" role="tab" data-format="toplota" aria-selected="false" data-i18n="tab.toplota">Toplota</button>
