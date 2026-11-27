@@ -6,8 +6,8 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-58Oededa.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DZ2WFcFC.css">
+    <script type="module" crossorigin src="./assets/index-6QlWCa9g.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-C2idBnY7.css">
   </head>
   <!--
     Texts: every element with data-i18n="key" is filled from src/i18n.ts (sr, sr-Cyrl, en);
@@ -72,6 +72,22 @@
       <details class="sci" data-style="heat"><summary data-i18n="sci.heat.title"></summary><div class="sci-body" data-i18n="sci.heat" data-i18n-html></div></details>
       <details class="sci" data-style="quantum"><summary data-i18n="sci.quantum.title"></summary><div class="sci-body" data-i18n="sci.quantum" data-i18n-html></div></details>
       <details class="sci" data-style="hologram"><summary data-i18n="sci.hologram.title"></summary><div class="sci-body" data-i18n="sci.hologram" data-i18n-html></div></details>
+    </dialog>
+
+    <dialog id="saveDialog" class="help save-dialog" aria-labelledby="saveTitle">
+      <div class="export-head">
+        <h2 id="saveTitle" data-i18n="save.title">Sačuvaj ili odštampaj sliku</h2>
+        <button id="saveClose" type="button" data-i18n-aria="close" aria-label="Zatvori">×</button>
+      </div>
+      <label class="check-line"><span data-i18n="save.scale">Veličina PNG-a</span>
+        <select id="saveScale">
+          <option value="1">1×</option>
+          <option value="2" selected>2×</option>
+          <option value="4">4×</option>
+        </select>
+      </label>
+      <ul id="saveList" class="save-list"></ul>
+      <p class="hint" id="saveNote" data-i18n="save.note">Svaka slika je izračunata iz jednačina tvog natpisa. SVG ostaje vektorski (oštar u svakoj veličini), PNG je slika u pikselima, a štampa otvara pregled štampe sa slikom preko cele strane.</p>
     </dialog>
 
     <main class="app" id="app" data-section="write">
@@ -480,6 +496,7 @@
 
       <!-- Below the screen: what can be done with it. -->
       <div class="panel commands" role="group" data-i18n-aria="cmd.aria" aria-label="Komande">
+        <button type="button" id="saveBtn" class="save-btn" aria-haspopup="dialog" data-i18n="save.button">⤓ Sačuvaj / štampaj</button>
         <div class="cmd" data-for="write">
             <div class="anim-bar" role="group" data-i18n-aria="anim.aria" aria-label="Animacija ispisivanja">
               <button id="play" type="button" class="primary">▶ Ispiši</button>
@@ -618,11 +635,24 @@
                 <option value="instagram" data-i18n="preset.instagram">Instagram objava</option>
                 <option value="majica" data-i18n="preset.majica">Majica (štampa)</option>
                 <option value="solja" data-i18n="preset.solja">Šolja (štampa)</option>
+                <option value="a4" data-i18n="preset.a4">Poster A4 (štampa)</option>
+                <option value="a3" data-i18n="preset.a3">Poster A3 (štampa)</option>
                 <option value="natpis" data-i18n="preset.natpis">Samo natpis</option>
               </select>
             </label>
+            <div class="field print-field">
+              <label class="field">
+                <span class="label" data-i18n="print.sides">Strane</span>
+                <select id="sides">
+                  <option value="one" data-i18n="print.one">Jedna strana</option>
+                  <option value="two" data-i18n="print.two">Dve strane (prednja i zadnja)</option>
+                </select>
+              </label>
+              <label class="check-line"><input id="mirror" type="checkbox" /> <span data-i18n="print.mirror">Ogledalo (za termo-transfer peglom)</span></label>
+            </div>
             <fieldset class="order-field">
               <legend class="label" data-i18n="imageParts">Šta je na slici</legend>
+              <span id="lblSide" hidden data-i18n="print.side">Strana</span><span id="lblSize" hidden data-i18n="print.size">Veličina</span>
               <span class="field-hint" data-i18n="order.hint">Prevuci ⠿ (ili ↑ ↓) da promeniš redosled na slici, odozgo nadole.</span>
               <ol id="imageOrder" class="order-list">
                 <li data-part="inscription"><span class="grip" aria-hidden="true">⠿</span><span class="order-label" data-i18n="order.inscription">Ispis (natpis)</span><span class="order-move"><button type="button" class="order-up" data-i18n-aria="order.up" aria-label="Pomeri gore">↑</button><button type="button" class="order-down" data-i18n-aria="order.down" aria-label="Pomeri dole">↓</button></span></li>
@@ -636,6 +666,13 @@
               <summary data-i18n="more.image">Više opcija slike</summary>
               <fieldset class="checks">
                 <label><input id="wall" type="checkbox" /> <span data-i18n="wall">Jednačine u pozadini</span></label>
+                <label id="wallSideField" class="wall-side" hidden><span data-i18n="print.wallSide">Jednačine u pozadini na strani</span>
+                  <select id="wallSide">
+                    <option value="front" data-i18n="print.front">Prednja</option>
+                    <option value="back" data-i18n="print.back">Zadnja</option>
+                    <option value="both" data-i18n="print.both">Obe</option>
+                  </select>
+                </label>
                 <label><input id="tracesImage" type="checkbox" /> <span data-i18n="traces">Tragovi nastanka</span></label>
                 <label><input id="liveEqImage" type="checkbox" checked /> <span data-i18n="liveEqImage">Jednačina uživo (GIF, animirani SVG)</span></label>
                 <label><input id="transparent" type="checkbox" /> <span data-i18n="transparent">Providna pozadina (PNG, SVG)</span></label>
