@@ -6,8 +6,8 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-upnYGH4q.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DmEEmitM.css">
+    <script type="module" crossorigin src="./assets/index-BYaq70u5.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Cd9c1bqy.css">
   </head>
   <!--
     Texts: every element with data-i18n="key" is filled from src/i18n.ts (sr, sr-Cyrl, en);
@@ -511,7 +511,17 @@
             <button type="button" class="link-btn" data-sci="relativity" data-i18n="sci.button">Kako ovo radi?</button>
           </div>
           <div id="whatIfPanel" class="wave-panel" hidden>
+            <div class="wave-controls">
+              <label class="check"><span data-i18n="whatif.exp">Eksperiment</span>
+                <select id="whatIfExp">
+                  <option value="gravity" data-i18n="whatif.exp.gravity">Gravitacija kao 1/rⁿ</option>
+                  <option value="spin" data-i18n="whatif.exp.spin">Zemlja se okreće drugačije</option>
+                  <option value="pi" data-i18n="whatif.exp.pi">π = 3</option>
+                </select>
+              </label>
+            </div>
             <div id="whatIfPlot" class="rel-plot"></div>
+            <div id="whatIfGravity">
             <div class="wave-controls">
               <label class="wave-time">
                 <span class="label" data-i18n="whatif.n">Gravitacija opada kao 1/rⁿ</span>
@@ -527,9 +537,26 @@
               </label>
               <output id="whatIfTimeOut" for="whatIfTime"></output>
             </div>
+            </div>
+            <div id="whatIfSpinBox" class="wave-controls" hidden>
+              <label class="wave-time">
+                <span class="label" data-i18n="whatif.spin">Okretanje Zemlje (puta pravo)</span>
+                <input type="range" id="whatIfSpin" min="-2" max="2" step="0.1" value="-1" />
+              </label>
+              <output id="whatIfSpinOut" for="whatIfSpin"></output>
+              <button type="button" id="whatIfRealSpin" data-i18n="whatif.realSpin">Prava Zemlja (× 1)</button>
+            </div>
+            <div id="whatIfPiBox" class="wave-controls" hidden>
+              <label class="wave-time">
+                <span class="label" data-i18n="whatif.pi">Vrednost π</span>
+                <input type="range" id="whatIfPi" min="2.5" max="4" step="0.01" value="3" />
+              </label>
+              <output id="whatIfPiOut" for="whatIfPi"></output>
+              <button type="button" id="whatIfRealPi" data-i18n="whatif.realPi">Pravo π</button>
+            </div>
             <p class="hint" id="whatIfNote"></p>
             <pre id="whatIfEq" class="export-text wave-eq"></pre>
-            <button type="button" class="link-btn" data-sci="astronomy" data-i18n="sci.button">Kako ovo radi?</button>
+            <button type="button" id="whatIfSci" class="link-btn" data-sci="astronomy" data-i18n="sci.button">Kako ovo radi?</button>
           </div>
           <div id="evoPanel" class="wave-panel" hidden>
             <div id="evoPlot" class="evo-plot"></div>
