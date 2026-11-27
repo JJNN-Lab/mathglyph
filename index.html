@@ -6,8 +6,8 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-D2GnH0wd.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DuIzVof6.css">
+    <script type="module" crossorigin src="./assets/index-Bkmy6_6J.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-1HQVVDKD.css">
   </head>
   <!--
     Texts: every element with data-i18n="key" is filled from src/i18n.ts (sr, sr-Cyrl, en);
@@ -392,7 +392,7 @@
         <details class="panel export" id="equations">
           <summary class="lab-summary">
             <span class="lab-name" data-i18n="eq.title">Jednačine</span>
-            <span class="lab-sub" data-i18n="eq.sub">Desmos · GeoGebra · LaTeX · TXT · SVG: jednačine natpisa za druge programe</span>
+            <span class="lab-sub" data-i18n="eq.sub">Desmos · GeoGebra · LaTeX · TXT · SVG · G-kod: jednačine natpisa za druge programe i mašine</span>
           </summary>
           <div class="tabs" role="tablist" data-i18n-aria="tabs.aria" aria-label="Format izvoza">
             <button type="button" role="tab" data-format="desmos" aria-selected="true">Desmos</button>
@@ -400,11 +400,25 @@
             <button type="button" role="tab" data-format="latex" aria-selected="false">LaTeX</button>
             <button type="button" role="tab" data-format="txt" aria-selected="false">TXT</button>
             <button type="button" role="tab" data-format="svg" aria-selected="false">SVG</button>
+            <button type="button" role="tab" data-format="gcode" aria-selected="false" data-i18n="tab.gcode">G-kod</button>
           </div>
           <div class="export-head">
             <h2 id="exportTitle"></h2>
             <div class="actions" id="exportActions"></div>
           </div>
+          <div id="gcodeOpts" class="wave-controls gcode-opts" hidden>
+            <label class="check"><span data-i18n="gcode.profile">Mašina</span>
+              <select id="gcodeProfile">
+                <option value="laser" data-i18n="gcode.laser">Laserski graver (GRBL)</option>
+                <option value="pen" data-i18n="gcode.pen">Ploter / CNC (osa Z)</option>
+              </select>
+            </label>
+            <label class="check"><span data-i18n="gcode.width">Širina</span> <input id="gcodeWidth" type="number" min="10" max="1000" step="1" value="100" /> mm</label>
+            <label class="check"><span data-i18n="gcode.feed">Brzina</span> <input id="gcodeFeed" type="number" min="50" max="20000" step="50" value="1000" /> mm/min</label>
+            <label class="check" id="gcodePowerField"><span data-i18n="gcode.power">Snaga lasera</span> <input id="gcodePower" type="number" min="1" max="100" step="1" value="60" /> %</label>
+            <label class="check" id="gcodeZField" hidden><span data-i18n="gcode.z">Z gore / dole</span> <input id="gcodeZUp" type="number" min="-50" max="50" step="0.5" value="3" /> / <input id="gcodeZDown" type="number" min="-50" max="50" step="0.1" value="0" /> mm</label>
+          </div>
+          <div id="gcodePreview" class="rel-plot" hidden></div>
           <p class="hint" id="exportHint"></p>
           <ol id="exprList" class="expr-list"></ol>
           <pre id="exportText" class="export-text" hidden></pre>
