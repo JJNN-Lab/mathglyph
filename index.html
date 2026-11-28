@@ -6,8 +6,8 @@
     <meta name="description" content="JNX MathGlyph: tekst ispisan matematičkim jednačinama." />
     <title>JNX MathGlyph</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d3b6e'/%3E%3Cpath d='M6 22 C 10 4, 14 4, 16 16 S 22 28, 26 10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <script type="module" crossorigin src="./assets/index-BfLhezHt.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-C3A8Xml1.css">
+    <script type="module" crossorigin src="./assets/index-BQnfBy5m.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DlQy_B-k.css">
   </head>
   <!--
     Texts: every element with data-i18n="key" is filled from src/i18n.ts (sr, sr-Cyrl, en);
@@ -75,6 +75,7 @@
       <details class="sci" data-style="blackhole"><summary data-i18n="sci.blackhole.title"></summary><div class="sci-body" data-i18n="sci.blackhole" data-i18n-html></div></details>
       <details class="sci" data-style="physics"><summary data-i18n="sci.physics.title"></summary><div class="sci-body" data-i18n="sci.physics" data-i18n-html></div></details>
       <details class="sci" data-style="relativity"><summary data-i18n="sci.relativity.title"></summary><div class="sci-body" data-i18n="sci.relativity" data-i18n-html></div></details>
+      <details class="sci" data-style="cipher"><summary data-i18n="sci.cipher.title"></summary><div class="sci-body" data-i18n="sci.cipher" data-i18n-html></div></details>
       <details class="sci" data-style="evolution"><summary data-i18n="sci.evolution.title"></summary><div class="sci-body" data-i18n="sci.evolution" data-i18n-html></div></details>
       <details class="sci" data-style="heat"><summary data-i18n="sci.heat.title"></summary><div class="sci-body" data-i18n="sci.heat" data-i18n-html></div></details>
       <details class="sci" data-style="quantum"><summary data-i18n="sci.quantum.title"></summary><div class="sci-body" data-i18n="sci.quantum" data-i18n-html></div></details>
@@ -454,6 +455,13 @@
             <canvas id="quantumCanvas" class="wave-canvas" role="img" data-i18n-aria="quantum.aria" aria-label="Gustina verovatnoće elektrona u kutiji"></canvas>
             <canvas id="fidelityCanvas" class="fidelity" width="960" height="150" role="img" data-i18n-aria="quantum.fidAria" aria-label="Sličnost sa početnim natpisom kroz vreme"></canvas>
           </div>
+          <div id="cipherPanel" class="wave-panel cipher-panel lab-screen" hidden>
+            <div id="cipherPlot" class="rel-plot cipher-plot"></div>
+            <div class="cipher-row">
+              <div id="cipherFreq" class="cipher-freq"></div>
+              <div id="cipherMachine" class="cipher-machine"></div>
+            </div>
+          </div>
           <div id="relPanel" class="wave-panel lab-screen" hidden>
             <div id="relPlot" class="rel-plot"></div>
           </div>
@@ -634,6 +642,7 @@
             <button type="button" role="tab" data-format="evolucija" aria-selected="false" data-i18n="tab.evolucija">Evolucija</button>
             <button type="button" role="tab" data-format="relativnost" aria-selected="false" data-i18n="tab.relativnost">Relativnost</button>
             <button type="button" role="tab" data-format="trid" aria-selected="false" data-i18n="tab.trid">3D</button>
+            <button type="button" role="tab" data-format="sifre" aria-selected="false" data-i18n="tab.sifre">Šifre</button>
             <button type="button" role="tab" data-format="staako" aria-selected="false" data-i18n="tab.staako">Šta ako?</button>
           </div>
           <p class="hint" id="labHint"></p>
@@ -727,6 +736,45 @@
             <p class="hint" id="quantumNote"></p>
             <pre id="quantumEq" class="export-text wave-eq"></pre>
             <button type="button" class="link-btn" data-sci="quantum" data-i18n="sci.button">Kako ovo radi?</button>
+          </div>
+          <div class="lab-ctl" data-panel="cipherPanel" hidden>
+            <label class="field">
+              <span class="label" data-i18n="cipher.kind">Šifra</span>
+              <select id="cipherKind">
+                <option value="caesar" data-i18n="cipher.caesar">Cezar</option>
+                <option value="vigenere" data-i18n="cipher.vigenere">Vižener</option>
+                <option value="enigma" selected data-i18n="cipher.enigma">Enigma</option>
+              </select>
+            </label>
+            <div id="caesarCtl" class="wave-controls">
+              <label class="wave-time">
+                <span class="label" data-i18n="cipher.shift">Pomak k</span>
+                <input type="range" id="cipherShift" min="0" max="25" step="1" value="3" />
+              </label>
+              <output id="cipherShiftOut" for="cipherShift"></output>
+            </div>
+            <label id="vigenereCtl" class="field">
+              <span class="label" data-i18n="cipher.key">Ključ</span>
+              <input id="cipherKey" type="text" value="MATEMATIKA" maxlength="40" spellcheck="false" autocomplete="off" />
+            </label>
+            <div id="enigmaCtl" class="cipher-enigma">
+              <span class="label" data-i18n="cipher.rotors">Rotori (levi, srednji, desni)</span>
+              <div class="cipher-rotors"><select id="enigmaL" data-i18n-aria="cipher.rotorL" aria-label=""><option selected>I</option><option>II</option><option>III</option><option>IV</option><option>V</option></select><select id="enigmaM" data-i18n-aria="cipher.rotorM" aria-label=""><option>I</option><option selected>II</option><option>III</option><option>IV</option><option>V</option></select><select id="enigmaR" data-i18n-aria="cipher.rotorR" aria-label=""><option>I</option><option>II</option><option selected>III</option><option>IV</option><option>V</option></select></div>
+              <label class="field"><span class="label" data-i18n="cipher.positions">Početni položaj</span><input id="enigmaPos" type="text" value="AAA" maxlength="3" spellcheck="false" autocomplete="off" /></label>
+              <label class="field"><span class="label" data-i18n="cipher.rings">Prstenovi</span><input id="enigmaRing" type="text" value="AAA" maxlength="3" spellcheck="false" autocomplete="off" /></label>
+              <label class="field"><span class="label" data-i18n="cipher.plugs">Kablovi na tabli</span><input id="enigmaPlugs" type="text" value="" maxlength="40" spellcheck="false" autocomplete="off" data-i18n-placeholder="cipher.plugsPh" placeholder="npr. AB CD EF" /></label>
+            </div>
+            <div class="wave-controls">
+              <button type="button" id="cipherPlay" class="primary" data-i18n="cipher.play">▶ Kucaj slovo po slovo</button>
+              <label class="wave-time">
+                <span class="label" data-i18n="cipher.at">Slovo</span>
+                <input type="range" id="cipherAt" min="0" max="0" step="1" value="0" />
+              </label>
+              <output id="cipherAtOut" for="cipherAt"></output>
+            </div>
+            <p class="hint" id="cipherNote" aria-live="polite"></p>
+            <pre id="cipherEq" class="export-text wave-eq"></pre>
+            <button type="button" class="link-btn" data-sci="cipher" data-i18n="sci.button">Kako ovo radi?</button>
           </div>
           <div class="lab-ctl" data-panel="relPanel" hidden>
             <div class="wave-controls">
